@@ -2,7 +2,7 @@
   {
     "id": "dotfiles",
     "name": "dotfiles",
-    "description": "My personal <strong>dotfiles</strong>, also designed for Omakase scripts",
+    "description": "A collection of <strong>dotfiles</strong>, also designed for Omakase scripts",
     "installCommand": "curl -fsSL https://omakasui.org/dotfiles | bash",
     "sourceUrl": "https://github.com/Kasui92/dotfiles",
     "status": [],
@@ -16,7 +16,7 @@
     "siteUrl": "https://omakube.omakasui.org",
     "sourceUrl": "https://github.com/Kasui92/omakube",
     "manualUrl": "https://omakube.omakasui.org/manual",
-    "status": ["work-in-progress"],
+    "status": ["stable"],
     "hidden": false
   },
   {
@@ -25,8 +25,8 @@
     "description": "Just like Omakube, but for <strong>Debian</strong>",
     "installCommand": "curl -fsSL https://omakasui.org/omadeb | bash",
     "sourceUrl": "https://github.com/Kasui92/omadeb",
-    "status": ["work-in-progress", "paused"],
-    "hidden": true
+    "status": ["work-in-progress"],
+    "hidden": false
   },
   {
     "id": "omasway",
