@@ -8,7 +8,7 @@ type Status =
   | "experimental"
   | "paused";
 
-const statusIcons: Record<Status, { icon: string; label: string }> = {
+const statusIcons: Record<Status, { icon?: string; label: string }> = {
   archived: {
     icon: "nf-md-archive",
     label: "Archived",
@@ -18,7 +18,6 @@ const statusIcons: Record<Status, { icon: string; label: string }> = {
     label: "Work in Progress",
   },
   stable: {
-    icon: "nf-md-check",
     label: "Stable",
   },
   experimental: {
@@ -31,13 +30,21 @@ const statusIcons: Record<Status, { icon: string; label: string }> = {
   },
 } as const;
 
-const statusIcon = (status: Status): string => {
-  return statusIcons[status]?.icon ?? "";
+const statusIcon = (status: Status): string | null => {
+  return statusIcons[status]?.icon ?? null;
 };
 
 const statusLabel = (status: Status): string => {
   return statusIcons[status]?.label ?? "";
 };
+
+if (!status || !(status in statusIcons)) {
+  throw new Error(`Invalid status: ${status}`);
+}
+
+if (!statusIcon(status)) {
+  return null;
+}
 ---
 
 <i
