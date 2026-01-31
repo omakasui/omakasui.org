@@ -8,4 +8,4 @@ This is an open and evolving project, and suggestions and feedback are always we
 
 ## License
 
-Omakasui.org is released under the [MIT License](https://github.com/Kasui92/omakasui.org/blob/main/LICENSE).
+Omakasui.org is released under the [MIT License](https://github.com/omakasui/omakasui.org/blob/main/LICENSE).

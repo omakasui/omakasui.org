@@ -2,19 +2,19 @@
   {
     "id": "rose-pine-dark",
     "name": "Rose Pine Dark",
-    "url": "https://github.com/Kasui92/omakub-rose-pine-dark-theme",
+    "url": "https://github.com/omakasui/omakub-rose-pine-dark-theme",
     "image": "/themes/rose-pine-dark.png"
   },
   {
     "id": "synthwave84",
     "name": "Synthwave 84",
-    "url": "https://github.com/Kasui92/omakub-synthwave84-theme",
+    "url": "https://github.com/omakasui/omakub-synthwave84-theme",
     "image": "/themes/synthwave84.png"
   },
   {
     "id": "miasma",
     "name": "Miasma",
-    "url": "https://github.com/Kasui92/omakub-miasma-theme",
+    "url": "https://github.com/omakasui/omakub-miasma-theme",
     "image": "/themes/miasma.png"
   }
 ]
