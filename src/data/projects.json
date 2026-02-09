@@ -9,13 +9,13 @@
     "hidden": false
   },
   {
-    "id": "omakube",
-    "name": "omakube",
+    "id": "omabuntu",
+    "name": "omabuntu",
     "description": "A fork of <a href=\"https://omakub.org\" target=\"_blank\" title=\"View Omakub website\" rel=\"noopener\">Omakub</a>, more flexible and refined",
-    "installCommand": "curl -fsSL https://omakube.omakasui.org/install | bash",
-    "siteUrl": "https://omakube.omakasui.org",
-    "sourceUrl": "https://github.com/Kasui92/omakube",
-    "manualUrl": "https://omakube.omakasui.org/manual",
+    "installCommand": "curl -fsSL https://omabuntu.omakasui.org/install | bash",
+    "siteUrl": "https://omabuntu.omakasui.org",
+    "sourceUrl": "https://github.com/omakasui/omabuntu",
+    "manualUrl": "https://omabuntu.omakasui.org/manual",
     "status": ["stable"],
     "hidden": false
   },
