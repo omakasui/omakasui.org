@@ -2,19 +2,25 @@
   {
     "id": "rose-pine-dark",
     "name": "Rose Pine Dark",
-    "url": "https://github.com/omakasui/omakub-rose-pine-dark-theme",
+    "url": "https://github.com/omakasui/omakasui-rose-pine-dark-theme",
     "image": "/themes/rose-pine-dark.png"
   },
   {
     "id": "synthwave84",
     "name": "Synthwave 84",
-    "url": "https://github.com/omakasui/omakub-synthwave84-theme",
+    "url": "https://github.com/omakasui/omakasui-synthwave84-theme",
     "image": "/themes/synthwave84.png"
   },
   {
     "id": "miasma",
     "name": "Miasma",
-    "url": "https://github.com/omakasui/omakub-miasma-theme",
+    "url": "https://github.com/omakasui/omakasui-miasma-theme",
     "image": "/themes/miasma.png"
+  },
+  {
+    "id": "florida-man",
+    "name": "Florida Man",
+    "url": "https://github.com/omakasui/omakasui-florida-man-theme",
+    "image": "/themes/florida-man.png"
   }
 ]
