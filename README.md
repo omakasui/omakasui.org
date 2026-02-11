@@ -1,4 +1,4 @@
-# OmaKasui
+# Omakasui
 
 A collection of post-installation scripts for Linux distributions inspired by [DHH's](https://dhh.dk) [Omacom](http://omacom.io).
 
