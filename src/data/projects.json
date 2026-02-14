@@ -24,7 +24,9 @@
     "name": "omadeb",
     "description": "Just like Omakube, but for <strong>Debian</strong>",
     "installCommand": "curl -fsSL https://omakasui.org/omadeb | bash",
+    "siteUrl": "https://omadeb.omakasui.org",
     "sourceUrl": "https://github.com/omakasui/omadeb",
+    "manualUrl": "https://omadeb.omakasui.org/manual",
     "status": ["work-in-progress"],
     "hidden": false
   },
