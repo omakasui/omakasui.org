@@ -27,7 +27,7 @@
     "siteUrl": "https://omadeb.omakasui.org",
     "sourceUrl": "https://github.com/omakasui/omadeb",
     "manualUrl": "https://omadeb.omakasui.org/manual",
-    "status": ["work-in-progress"],
+    "status": ["stable"],
     "hidden": false
   },
   {
