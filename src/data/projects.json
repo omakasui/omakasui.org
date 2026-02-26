@@ -23,7 +23,7 @@
     "id": "omadeb",
     "name": "omadeb",
     "description": "Just like Omabuntu, but for <strong>Debian</strong>",
-    "installCommand": "curl -fsSL https://omakasui.org/omadeb | bash",
+    "installCommand": "curl -fsSL https://omadeb.omakasui.org/install | bash",
     "siteUrl": "https://omadeb.omakasui.org",
     "sourceUrl": "https://github.com/omakasui/omadeb",
     "manualUrl": "https://omadeb.omakasui.org/manual",
