@@ -16,7 +16,7 @@
     "name": "Retro '82",
     "url": "https://github.com/omakasui/omakasui-retro-82-theme",
     "image": "/themes/retro-82.png"
-  }
+  },
   {
     "id": "rose-pine-dark",
     "name": "Rose Pine Dark",
@@ -28,5 +28,5 @@
     "name": "Synthwave 84",
     "url": "https://github.com/omakasui/omakasui-synthwave84-theme",
     "image": "/themes/synthwave84.png"
-  },
+  }
 ]
