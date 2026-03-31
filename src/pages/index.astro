@@ -1,64 +1,48 @@
 ---
 import { getCollection } from "astro:content";
-
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/layout/Header.astro";
-import ProjectList from "@/components/ProjectList.astro";
-import HiddensToggle from "@/components/HiddensToggle.astro";
 
-const projects = await getCollection("projects");
-
-const activeProjects = projects.filter((project) => !project.data.hidden);
-const hiddenProjects = projects.filter((project) => project.data.hidden);
+const sections = (await getCollection("sections")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 ---
 
 <Layout>
-  <Header
-    title="$ omakasui"
-    subtitle="Post-installation scripts for Linux distributions"
-    accessibleName="Omakasui - Home"
-  />
-  <section aria-labelledby="intro-heading">
-    <h2 class="sr-only" id="intro-heading">Introduction</h2>
-    <p class="text-[1.1rem] leading-[1.8] text-[#ccc]">
-      Inspired by
-      <a
-        href="https://dhh.dk"
-        target="_blank"
-        title="David Heinemeier Hansson's website"
-        rel="noopener">DHH's</a
-      >
-      <a
-        href="https://omacom.io"
-        target="_blank"
-        title="Omacom - DHH's opinionated software collection"
-        rel="noopener">Omacom</a
-      >
-      philosophy,
-      <i>Omakasui</i> is a curated collection of opinionated post-installation scripts
-      for Linux made by <a
-        href="https://lucapattocchio.com"
-        target="_blank"
-        rel="noopener">Kasui</a
-      >. One command, zero hassle: get a ready-to-use system tailored to your
-      workflow and preferences.
+  <section aria-labelledby="welcome-heading">
+    <h1 class="sr-only" id="welcome-heading">Omakasui</h1>
+    <p
+      class="text-foreground-muted mb-1 font-mono text-xs select-none"
+      aria-hidden="true"
+    >
+      kasui@omakasui:~ $ ls -la
     </p>
-  </section>
-  <section aria-labelledby="scripts-heading">
-    <h2 class="sr-only" id="scripts-heading">Available scripts</h2>
-    <h2>$ ls projects/</h2>
-    <ProjectList projects={activeProjects} />
-    {
-      hiddenProjects.length > 0 && (
-        <HiddensToggle count={hiddenProjects.length}>
-          <ProjectList projects={hiddenProjects} />
-        </HiddensToggle>
-      )
-    }
-  </section>
-
-  <section aria-labelledby="themes-heading">
-    <h2 class="sr-only" id="themes-heading">Available themes</h2>
-    <h2><a href="/themes" title="Go to themes">$ cd themes/</a></h2>
+    <p class="text-foreground-muted mb-6 font-mono text-xs">
+      total {sections.length} &mdash; post-installation scripts for Linux
+    </p>
+    <ul class="space-y-3" role="list">
+      {
+        sections.map((s) => (
+          <li>
+            <a
+              href={s.data.href}
+              class="group flex items-baseline gap-x-3 no-underline sm:gap-x-4"
+            >
+              <span
+                class="text-foreground-muted hidden shrink-0 font-mono text-xs select-none sm:inline"
+                aria-hidden="true"
+              >
+                drwxr-xr-x
+              </span>
+              <span class="text-primary group-hover:text-primary-light w-20 shrink-0 font-mono text-sm font-semibold transition-colors duration-200 sm:w-28">
+                {s.data.name}
+              </span>
+              <span class="text-foreground-secondary truncate font-mono text-xs">
+                {s.data.desc}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 </Layout>

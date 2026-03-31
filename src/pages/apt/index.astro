@@ -1,0 +1,147 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/layout/Header.astro";
+
+const aptPackages = await getCollection("aptPackages");
+
+const APT_REPO_URL = "https://apt.omakasui.org";
+
+const setupCommand =
+  `curl -fsSL ${APT_REPO_URL}/KEY.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/omakasui.gpg && \\` +
+  `\necho "deb [signed-by=/etc/apt/keyrings/omakasui.gpg] ${APT_REPO_URL} stable main" | sudo tee /etc/apt/sources.list.d/omakasui.list && \\` +
+  `\nsudo apt update && sudo apt install omabuntu`;
+---
+
+<Layout title="APT Repository">
+  <Header
+    title="Omakasui — APT Repository"
+    subtitle="Official Omakasui APT repository for Ubuntu and Debian."
+  />
+
+  <section aria-labelledby="apt-setup-heading">
+    <h2
+      class="text-foreground-muted mb-3 font-mono text-xs font-normal"
+      id="apt-setup-heading"
+    >
+      $ apt-get source omakasui
+    </h2>
+
+    <p class="text-foreground mb-6 text-[1.1rem] leading-relaxed">
+      The Omakasui APT repository lets you install and keep all project packages
+      up to date via <code
+        class="border-border-light bg-background-secondary text-primary rounded border px-2 py-0.5 text-sm"
+        >apt</code
+      >. Compatible with <strong class="text-foreground-bright"
+        >Ubuntu 22.04+</strong
+      > and <strong class="text-foreground-bright">Debian 12+</strong>.
+    </p>
+
+    <div
+      class="border-border bg-surface overflow-hidden rounded-sm border p-4 sm:p-5"
+    >
+      <p class="text-foreground-muted mb-3 text-sm">
+        GPG key · repository · update · install — in one shot:
+      </p>
+      <div
+        class="border-border-light bg-background-secondary flex items-start gap-2 overflow-hidden rounded-sm border p-3 sm:gap-4 sm:p-4"
+        role="group"
+        aria-label="Full setup command"
+      >
+        <code
+          class="text-primary block min-w-0 flex-1 overflow-x-auto text-xs leading-loose whitespace-pre sm:text-sm"
+          style="scrollbar-width: thin;"
+        >
+          {setupCommand}
+        </code>
+        <button
+          class="border-border-light bg-surface text-foreground-secondary hover:bg-surface-hover hover:text-foreground-bright mt-0.5 flex shrink-0 cursor-pointer items-center justify-center rounded border px-2.5 py-1.5 text-xs transition-colors sm:mt-0 sm:px-3 sm:py-2"
+          onclick={`navigator.clipboard.writeText(${JSON.stringify(setupCommand)})`}
+          title="Copy to clipboard"
+          aria-label="Copy full setup command"
+        >
+          <i class="nf nf-md-content_copy"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="packages-heading">
+    <h2
+      class="text-foreground-muted mb-3 font-mono text-xs font-normal"
+      id="packages-heading"
+    >
+      $ dpkg -l | grep omakasui
+    </h2>
+
+    <p class="text-foreground-secondary mb-6">
+      Packages available in the <code
+        class="border-border-light bg-background-secondary text-primary rounded border px-2 py-0.5 text-sm"
+        >stable/main</code
+      > repository:
+    </p>
+
+    <div
+      class="border-border overflow-x-auto rounded-sm border"
+      style="scrollbar-width: thin;"
+    >
+      <table
+        class="w-full min-w-[500px] text-sm"
+        aria-label="Available APT packages"
+      >
+        <thead>
+          <tr class="border-border bg-surface border-b">
+            <th
+              class="text-foreground-bright px-4 py-3 text-left font-semibold"
+              scope="col">Package</th
+            >
+            <th
+              class="text-foreground-bright px-4 py-3 text-left font-semibold"
+              scope="col">Version</th
+            >
+            <th
+              class="text-foreground-bright hidden px-4 py-3 text-left font-semibold md:table-cell"
+              scope="col">Arch.</th
+            >
+            <th
+              class="text-foreground-bright px-4 py-3 text-left font-semibold"
+              scope="col">Description</th
+            >
+          </tr>
+        </thead>
+        <tbody>
+          {
+            aptPackages.map((pkg, i) => (
+              <tr
+                class:list={[
+                  "border-border hover:bg-surface-hover border-b transition-colors",
+                  i === aptPackages.length - 1 ? "border-b-0" : "",
+                ]}
+              >
+                <td class="text-primary px-4 py-3 font-mono">
+                  {pkg.data.name}
+                </td>
+                <td class="text-foreground-muted px-4 py-3">
+                  {pkg.data.version}
+                </td>
+                <td class="text-foreground-muted hidden px-4 py-3 md:table-cell">
+                  {pkg.data.architecture}
+                </td>
+                <td class="text-foreground-secondary px-4 py-3">
+                  {pkg.data.description}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <p class="text-foreground-muted mt-4 font-mono text-xs">
+      URL: <code class="text-primary">{APT_REPO_URL}</code> · Distribution:
+      <code class="text-primary">stable</code> · Component: <code
+        class="text-primary">main</code
+      >
+    </p>
+  </section>
+</Layout>

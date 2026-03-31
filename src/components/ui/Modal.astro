@@ -62,7 +62,7 @@ const sizeClasses = {
 </div>
 
 <script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("astro:page-load", () => {
     const modals = document.querySelectorAll("[data-modal]");
 
     modals.forEach((modal) => {

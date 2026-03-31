@@ -1,0 +1,36 @@
+---
+/**
+ * Displays the visitor IP in the terminal prompt.
+ * Uses is:inline for synchronous sessionStorage read (no flash).
+ * Compatible with ViewTransitions via astro:after-swap.
+ */
+---
+
+<script is:inline>
+  (function () {
+    function applyIp() {
+      var cached = sessionStorage.getItem("omakasui_ip");
+      var el = document.getElementById("nav-ip");
+      if (el && cached) el.textContent = cached + "@";
+    }
+
+    applyIp();
+
+    document.addEventListener("astro:after-swap", applyIp);
+
+    if (!window.__ipFetched) {
+      window.__ipFetched = true;
+      fetch("https://api.ipify.org?format=json")
+        .then(function (r) {
+          return r.json();
+        })
+        .then(function (data) {
+          if (data && data.ip) {
+            sessionStorage.setItem("omakasui_ip", data.ip);
+            applyIp();
+          }
+        })
+        .catch(function () {});
+    }
+  })();
+</script>

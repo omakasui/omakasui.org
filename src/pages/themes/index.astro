@@ -12,19 +12,23 @@ const themes = (await getCollection("themes")).sort((a, b) =>
 
 <Layout title="Themes">
   <Header
-    title="$ omakasui / themes"
-    subtitle="The curated theme list for Omakasui (and beyond)"
-    accessibleName="Omakasui - Themes"
+    title="Omakasui — Themes"
+    subtitle="The curated theme list for Omakasui (and beyond)."
   />
 
-  <section aria-labelledby="goback-heading">
-    <h2 class="sr-only" id="goback-heading">Go Back</h2>
-    <h2><a href="/" title="Go back to the previous page">$ cd ..</a></h2>
-  </section>
-
   <section aria-labelledby="themes-heading">
-    <h2 class="sr-only" id="themes-heading">Themes Library</h2>
-    <h2>$ ls</h2>
-    {themes.length > 0 && <ThemesList themes={themes} />}
+    <h2
+      class="text-foreground-muted mb-3 font-mono text-xs font-normal"
+      id="themes-heading"
+    >
+      $ ls themes/
+    </h2>
+    {
+      themes.length === 0 ? (
+        <p class="text-foreground-muted italic">No themes available yet.</p>
+      ) : (
+        <ThemesList themes={themes} />
+      )
+    }
   </section>
 </Layout>

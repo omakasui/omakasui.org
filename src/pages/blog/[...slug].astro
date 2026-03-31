@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from "astro:content";
+
+import Layout from "@/layouts/Layout.astro";
+import MarkdownEnhancements from "@/components/MarkdownEnhancements.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts
+    .filter((post) => !post.data.draft)
+    .map((post) => ({
+      params: { slug: post.id },
+      props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+---
+
+<Layout title={post.data.title}>
+  <section aria-labelledby="post-heading">
+    <h2 class="sr-only" id="post-heading">{post.data.title}</h2>
+    <article class="markdown-content">
+      <p
+        class="text-foreground-muted mb-4 font-mono text-xs select-none"
+        aria-hidden="true"
+      >
+        $ cat blog/{post.id}.md
+      </p>
+      <time
+        class="text-foreground-muted mb-6 block font-mono text-xs"
+        datetime={post.data.date.toISOString()}
+      >
+        {formatDate(post.data.date)}
+      </time>
+      <h1>{post.data.title}</h1>
+      <Content />
+    </article>
+    <MarkdownEnhancements />
+  </section>
+</Layout>

@@ -1,0 +1,8 @@
+[
+  { "id": "home", "href": "/", "label": "~/", "exact": true, "order": 0 },
+  { "id": "about", "href": "/about", "label": "about/", "order": 1 },
+  { "id": "projects", "href": "/projects", "label": "projects/", "order": 2 },
+  { "id": "apt", "href": "/apt", "label": "apt/", "order": 3 },
+  { "id": "themes", "href": "/themes", "label": "themes/", "order": 4 },
+  { "id": "blog", "href": "/blog", "label": "blog/", "order": 5 }
+]
