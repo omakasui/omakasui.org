@@ -4,7 +4,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 import tailwindcss from "@tailwindcss/vite";
-import { remarkAlert } from "remark-github-blockquote-alert";
+
+import react from "@astrojs/react";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -19,8 +20,15 @@ export default defineConfig({
         "@": path.resolve(__dirname, "./src"),
       },
     },
+    build: {
+      sourcemap: false,
+      rollupOptions: {
+        output: {
+          sourcemap: false,
+        },
+      },
+    },
   },
-  markdown: {
-    remarkPlugins: [remarkAlert],
-  },
+
+  integrations: [react()],
 });
