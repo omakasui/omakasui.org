@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import StatusIcon from "@/components/StatusIcon.astro";
 
 const { projects } = Astro.props;
 type Project = CollectionEntry<"projects">;
@@ -27,13 +26,6 @@ type Project = CollectionEntry<"projects">;
               {project.data.name}
             </span>
           )}
-          {project.data.status.length > 0
-            ? project.data.status.map((status) => (
-                <span class="ml-2 align-middle">
-                  <StatusIcon status={status} />
-                </span>
-              ))
-            : null}
         </h3>
         <p
           class="text-foreground-secondary mb-6"

@@ -45,15 +45,6 @@ const projects = defineCollection({
     siteUrl: z.string().optional(),
     sourceUrl: z.string().optional(),
     manualUrl: z.string().optional(),
-    status: z.array(
-      z.enum([
-        "work-in-progress",
-        "archived",
-        "experimental",
-        "stable",
-        "paused",
-      ]),
-    ),
     hidden: z.boolean(),
   }),
 });

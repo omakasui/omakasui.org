@@ -5,7 +5,6 @@
     "description": "A collection of <strong>dotfiles</strong>, also designed for Omakase scripts",
     "installCommand": "curl -fsSL https://omakasui.org/dotfiles | bash",
     "sourceUrl": "https://github.com/Kasui92/dotfiles",
-    "status": [],
     "hidden": false
   },
   {
@@ -16,7 +15,6 @@
     "siteUrl": "https://omabuntu.omakasui.org",
     "sourceUrl": "https://github.com/omakasui/omabuntu",
     "manualUrl": "https://omabuntu.omakasui.org/manual",
-    "status": ["stable"],
     "hidden": false
   },
   {
@@ -27,7 +25,6 @@
     "siteUrl": "https://omadeb.omakasui.org",
     "sourceUrl": "https://github.com/omakasui/omadeb",
     "manualUrl": "https://omadeb.omakasui.org/manual",
-    "status": ["stable"],
     "hidden": false
   },
   {
@@ -36,7 +33,6 @@
     "description": "Opinionated <strong>Ubuntu</strong>/<strong>Sway</strong> Setup",
     "installCommand": "curl -fsSL https://omakasui.org/omasway | bash",
     "sourceUrl": "https://github.com/omakasui/omasway",
-    "status": ["paused"],
     "hidden": true
   }
 ]
