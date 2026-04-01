@@ -25,7 +25,8 @@ const currentDir = segments.length === 0 ? "~" : `~/${segments[0]}`;
       class="block overflow-hidden font-mono text-xs no-underline select-none sm:text-sm"
       aria-label="Omakasui home"
     >
-      <span id="nav-ip" class="text-foreground-muted">visitor@</span><span
+      <IpPrompt />
+      <span
         class="text-primary hover:text-primary-light font-semibold transition-colors duration-200"
         >omakasui</span
       ><span class="text-foreground-muted"
@@ -60,5 +61,3 @@ const currentDir = segments.length === 0 ? "~" : `~/${segments[0]}`;
     }
   </div>
 </nav>
-
-<IpPrompt />
