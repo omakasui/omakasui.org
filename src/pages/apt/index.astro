@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/layout/Header.astro";
 
 const aptPackages = await getCollection("aptPackages");
 
@@ -14,11 +13,6 @@ const setupCommand =
 ---
 
 <Layout title="APT Repository">
-  <Header
-    title="Omakasui — APT Repository"
-    subtitle="Official Omakasui APT repository for Ubuntu and Debian."
-  />
-
   <section aria-labelledby="apt-setup-heading">
     <h2
       class="text-foreground-muted mb-3 font-mono text-xs font-normal"
