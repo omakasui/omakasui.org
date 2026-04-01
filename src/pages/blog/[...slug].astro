@@ -2,7 +2,7 @@
 import { getCollection, render } from "astro:content";
 
 import Layout from "@/layouts/Layout.astro";
-import MarkdownEnhancements from "@/components/MarkdownEnhancements.astro";
+import MarkdownContent from "jaamd/components";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -42,8 +42,12 @@ const formatDate = (date: Date) =>
         {formatDate(post.data.date)}
       </time>
       <h1>{post.data.title}</h1>
-      <Content />
+      <MarkdownContent
+        id="content"
+        class="w-full leading-relaxed wrap-break-word"
+      >
+        <Content />
+      </MarkdownContent>
     </article>
-    <MarkdownEnhancements />
   </section>
 </Layout>

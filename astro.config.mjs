@@ -7,6 +7,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 import react from "@astrojs/react";
 
+import jaamd from "jaamd";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://astro.build/config
@@ -30,5 +32,10 @@ export default defineConfig({
     },
   },
 
-  integrations: [react()],
+  integrations: [
+    react(),
+    jaamd({
+      theme: "github-dark",
+    }),
+  ],
 });
