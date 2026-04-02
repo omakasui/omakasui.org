@@ -19,9 +19,9 @@ const aptPackages = defineCollection({
     id: z.string(),
     name: z.string(),
     version: z.string(),
-    description: z.string(),
-    section: z.string(),
-    architecture: z.string(),
+    suites: z.array(z.string()),
+    architecture: z.array(z.string()),
+    url: z.string().optional(),
   }),
 });
 

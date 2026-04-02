@@ -1,17 +1,11 @@
+import type { Post } from "@/@types/blog";
 import { useState } from "react";
-
-interface Post {
-  id: string;
-  title: string;
-  formattedDate: string;
-  description?: string;
-}
 
 interface Props {
   posts: Post[];
 }
 
-export default function BlogSearch({ posts }: Props) {
+export default function BlogList({ posts }: Props) {
   const [query, setQuery] = useState("");
 
   const filtered = query.trim()

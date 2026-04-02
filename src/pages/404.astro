@@ -1,18 +1,23 @@
 ---
+import ShellCommand from "@/components/ShellCommand.astro";
 import Layout from "@/layouts/Layout.astro";
+
+const currentPath = Astro.url.pathname;
+const pathSegments = currentPath.split("/").filter(Boolean);
 ---
 
 <Layout title="404 — Not Found">
-  <div
-    class="m-auto flex h-full w-full flex-col items-center justify-center px-16 text-center"
+  <section
+    class="flex min-h-[60vh] flex-col items-center justify-center text-center"
+    aria-labelledby="error-heading"
   >
-    <p class="text-foreground-muted mb-2 text-sm select-none">
-      bash: cd: $path: No such file or directory
-    </p>
+    <ShellCommand>
+      bash: cd: {pathSegments.join("/")} : No such file or directory
+    </ShellCommand>
     <h1 class="text-primary mb-6 text-6xl font-bold">404</h1>
     <p class="text-foreground-secondary mb-8">
       The page you're looking for doesn't exist.
     </p>
     <a href="/" title="Go back to homepage">$ cd ~</a>
-  </div>
+  </section>
 </Layout>

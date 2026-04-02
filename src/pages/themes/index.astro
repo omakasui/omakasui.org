@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 
 import Layout from "@/layouts/Layout.astro";
 import ThemesList from "@/components/ThemesList.astro";
+import ShellCommand from "@/components/ShellCommand.astro";
 
 const themes = (await getCollection("themes")).sort((a, b) =>
   a.data.name.localeCompare(b.data.name),
@@ -11,12 +12,8 @@ const themes = (await getCollection("themes")).sort((a, b) =>
 
 <Layout title="Themes">
   <section aria-labelledby="themes-heading">
-    <h2
-      class="text-foreground-muted mb-3 font-mono text-xs font-normal"
-      id="themes-heading"
-    >
-      $ ls themes/
-    </h2>
+    <h1 class="sr-only" id="themes-heading">Themes</h1>
+    <ShellCommand> $ ls themes/ </ShellCommand>
     {
       themes.length === 0 ? (
         <p class="text-foreground-muted italic">No themes available yet.</p>

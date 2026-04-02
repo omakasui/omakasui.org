@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 
 import Layout from "@/layouts/Layout.astro";
 import MarkdownContent from "jaamd/components";
+import ShellCommand from "@/components/ShellCommand.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -27,21 +28,18 @@ const formatDate = (date: Date) =>
 
 <Layout title={post.data.title}>
   <section aria-labelledby="post-heading">
-    <h2 class="sr-only" id="post-heading">{post.data.title}</h2>
+    <h1 class="sr-only" id="post-heading">{post.data.title}</h1>
     <article class="markdown-content">
-      <p
-        class="text-foreground-muted mb-4 font-mono text-xs select-none"
-        aria-hidden="true"
-      >
+      <ShellCommand>
         $ cat blog/{post.id}.md
-      </p>
+      </ShellCommand>
       <time
         class="text-foreground-muted mb-6 block font-mono text-xs"
         datetime={post.data.date.toISOString()}
       >
         {formatDate(post.data.date)}
       </time>
-      <h1>{post.data.title}</h1>
+      <h2 class="text-primary mb-4 text-3xl font-bold">{post.data.title}</h2>
       <MarkdownContent
         id="content"
         class="w-full leading-relaxed wrap-break-word"

@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 
 import Layout from "@/layouts/Layout.astro";
-import BlogSearch from "@/components/BlogSearch";
+import BlogList from "@/components/BlogList";
 
 const allPosts = await getCollection("blog");
 const posts = allPosts
@@ -27,6 +27,6 @@ const serializedPosts = posts.map((post) => ({
 <Layout title="Blog">
   <section aria-labelledby="posts-heading">
     <h1 class="sr-only" id="posts-heading">Blog</h1>
-    <BlogSearch posts={serializedPosts} client:load />
+    <BlogList posts={serializedPosts} client:load />
   </section>
 </Layout>
