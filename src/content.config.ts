@@ -13,17 +13,6 @@ const navLinks = defineCollection({
   }),
 });
 
-const sections = defineCollection({
-  loader: file("src/content/sections.json"),
-  schema: z.object({
-    id: z.string(),
-    href: z.string(),
-    name: z.string(),
-    desc: z.string(),
-    order: z.number(),
-  }),
-});
-
 const aptPackages = defineCollection({
   loader: file("src/content/apt-packages.json"),
   schema: z.object({
@@ -72,7 +61,6 @@ const blog = defineCollection({
 
 export const collections = {
   navLinks,
-  sections,
   aptPackages,
   projects,
   themes,
