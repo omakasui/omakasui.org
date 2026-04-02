@@ -1,12 +1,23 @@
 ---
-/**
- * Displays the visitor IP in the terminal prompt.
- * Uses is:inline for synchronous sessionStorage read (no flash).
- * Compatible with ViewTransitions via astro:after-swap.
- */
+const currentPath = Astro.url.pathname;
+const segments = currentPath.replace(/^\//, "").split("/").filter(Boolean);
+const currentDir = segments.length === 0 ? "~" : `~/${segments[0]}`;
 ---
 
-<span id="nav-ip" class="text-foreground-muted">visitor@</span>
+<div class="mb-2 sm:mb-0 sm:flex sm:items-center sm:justify-between">
+  <div class="block overflow-hidden font-mono text-xs sm:text-sm">
+    <span id="nav-ip" class="text-foreground-muted">visitor@</span><a
+      href="/"
+      aria-label="Omakasui home"
+      class="text-primary hover:text-primary-light font-semibold no-underline transition-colors duration-200 select-none"
+      >omakasui</a
+    ><span class="text-foreground-muted"
+      >:<span class="hidden sm:inline">{currentDir}</span><span
+        class="sm:hidden">~</span
+      > $</span
+    >
+  </div>
+</div>
 
 <script is:inline>
   (function () {

@@ -71,9 +71,8 @@
   }
 }
 
-nav,
 header,
-section,
+main,
 footer {
   @apply mx-auto mt-0 w-full max-w-200;
 }

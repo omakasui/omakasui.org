@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import IpPrompt from "./IpPrompt.astro";
 
 const links = (await getCollection("navLinks")).sort(
   (a, b) => a.data.order - b.data.order,
@@ -9,55 +8,28 @@ const links = (await getCollection("navLinks")).sort(
 const currentPath = Astro.url.pathname;
 const isActive = (href: string, exact = false) =>
   exact ? currentPath === href : currentPath.startsWith(href);
-
-const segments = currentPath.replace(/^\//, "").split("/").filter(Boolean);
-const currentDir = segments.length === 0 ? "~" : `~/${segments[0]}`;
 ---
 
 <nav
-  class="border-border mb-6 border-b pb-4 sm:mb-10 sm:pb-5"
+  class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] sm:gap-x-5 sm:text-sm"
   aria-label="Site navigation"
 >
-  <!-- Prompt line -->
-  <div class="mb-2 sm:mb-0 sm:flex sm:items-center sm:justify-between">
-    <a
-      href="/"
-      class="block overflow-hidden font-mono text-xs no-underline select-none sm:text-sm"
-      aria-label="Omakasui home"
-    >
-      <IpPrompt />
-      <span
-        class="text-primary hover:text-primary-light font-semibold transition-colors duration-200"
-        >omakasui</span
-      ><span class="text-foreground-muted"
-        >:<span class="hidden sm:inline">{currentDir}</span><span
-          class="sm:hidden">~</span
-        > $</span
+  {
+    links.map((link) => (
+      <a
+        href={link.data.href}
+        class:list={[
+          "font-mono font-normal no-underline transition-colors duration-200",
+          isActive(link.data.href, link.data.exact)
+            ? "text-primary font-semibold"
+            : "text-foreground-muted hover:text-foreground",
+        ]}
+        aria-current={
+          isActive(link.data.href, link.data.exact) ? "page" : undefined
+        }
       >
-    </a>
-  </div>
-
-  <!-- Nav links -->
-  <div
-    class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] sm:gap-x-5 sm:text-sm"
-  >
-    {
-      links.map((link) => (
-        <a
-          href={link.data.href}
-          class:list={[
-            "font-mono font-normal no-underline transition-colors duration-200",
-            isActive(link.data.href, link.data.exact)
-              ? "text-primary font-semibold"
-              : "text-foreground-muted hover:text-foreground",
-          ]}
-          aria-current={
-            isActive(link.data.href, link.data.exact) ? "page" : undefined
-          }
-        >
-          {link.data.label}
-        </a>
-      ))
-    }
-  </div>
+        {link.data.label}
+      </a>
+    ))
+  }
 </nav>
