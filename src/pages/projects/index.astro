@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+
+import Layout from "@/layouts/Layout.astro";
+import ProjectList from "@/components/ProjectList.astro";
+import HiddensToggle from "@/components/HiddensToggle.astro";
+import ShellCommand from "@/components/ShellCommand.astro";
+
+const projects = await getCollection("projects");
+const activeProjects = projects.filter((p) => !p.data.hidden);
+const hiddenProjects = projects.filter((p) => p.data.hidden);
+---
+
+<Layout title="Projects">
+  <section aria-labelledby="projects-heading">
+    <h1 class="sr-only" id="projects-heading">Projects</h1>
+    <ShellCommand> $ ls -la projects/ </ShellCommand>
+    <ProjectList projects={activeProjects} />
+    {
+      hiddenProjects.length > 0 && (
+        <HiddensToggle count={hiddenProjects.length}>
+          <ProjectList projects={hiddenProjects} />
+        </HiddensToggle>
+      )
+    }
+  </section>
+</Layout>

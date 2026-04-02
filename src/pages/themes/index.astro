@@ -2,8 +2,8 @@
 import { getCollection } from "astro:content";
 
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/layout/Header.astro";
 import ThemesList from "@/components/ThemesList.astro";
+import ShellCommand from "@/components/ShellCommand.astro";
 
 const themes = (await getCollection("themes")).sort((a, b) =>
   a.data.name.localeCompare(b.data.name),
@@ -11,20 +11,15 @@ const themes = (await getCollection("themes")).sort((a, b) =>
 ---
 
 <Layout title="Themes">
-  <Header
-    title="$ omakasui / themes"
-    subtitle="The curated theme list for Omakasui (and beyond)"
-    accessibleName="Omakasui - Themes"
-  />
-
-  <section aria-labelledby="goback-heading">
-    <h2 class="sr-only" id="goback-heading">Go Back</h2>
-    <h2><a href="/" title="Go back to the previous page">$ cd ..</a></h2>
-  </section>
-
   <section aria-labelledby="themes-heading">
-    <h2 class="sr-only" id="themes-heading">Themes Library</h2>
-    <h2>$ ls</h2>
-    {themes.length > 0 && <ThemesList themes={themes} />}
+    <h1 class="sr-only" id="themes-heading">Themes</h1>
+    <ShellCommand> $ ls themes/ </ShellCommand>
+    {
+      themes.length === 0 ? (
+        <p class="text-foreground-muted italic">No themes available yet.</p>
+      ) : (
+        <ThemesList themes={themes} />
+      )
+    }
   </section>
 </Layout>

@@ -1,8 +1,32 @@
-import { defineCollection, z } from "astro:content";
-import { file } from "astro/loaders";
+import { defineCollection } from "astro:content";
+import { z } from "astro/zod";
+import { file, glob } from "astro/loaders";
+
+const navLinks = defineCollection({
+  loader: file("src/content/nav-links.json"),
+  schema: z.object({
+    id: z.string(),
+    href: z.string(),
+    label: z.string(),
+    exact: z.boolean().default(false),
+    order: z.number(),
+  }),
+});
+
+const aptPackages = defineCollection({
+  loader: file("src/content/apt-packages.json"),
+  schema: z.object({
+    id: z.string(),
+    name: z.string(),
+    version: z.string(),
+    suites: z.array(z.string()),
+    architecture: z.array(z.string()),
+    url: z.string().optional(),
+  }),
+});
 
 const projects = defineCollection({
-  loader: file("src/data/projects.json"),
+  loader: file("src/content/projects.json"),
   schema: z.object({
     id: z.string(),
     name: z.string(),
@@ -11,21 +35,12 @@ const projects = defineCollection({
     siteUrl: z.string().optional(),
     sourceUrl: z.string().optional(),
     manualUrl: z.string().optional(),
-    status: z.array(
-      z.enum([
-        "work-in-progress",
-        "archived",
-        "experimental",
-        "stable",
-        "paused",
-      ]),
-    ),
     hidden: z.boolean(),
   }),
 });
 
 const themes = defineCollection({
-  loader: file("src/data/themes.json"),
+  loader: file("src/content/themes.json"),
   schema: z.object({
     id: z.string(),
     name: z.string(),
@@ -34,7 +49,20 @@ const themes = defineCollection({
   }),
 });
 
+const blog = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    description: z.string().optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
 export const collections = {
+  navLinks,
+  aptPackages,
   projects,
   themes,
+  blog,
 };

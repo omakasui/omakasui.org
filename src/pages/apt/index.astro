@@ -1,0 +1,123 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import ShellCommand from "@/components/ShellCommand.astro";
+
+const aptPackages = await getCollection("aptPackages");
+
+const KEYRINGS_REPO_URL = "https://keyrings.omakasui.org";
+const APT_REPO_URL = "https://packages.omakasui.org";
+
+const setupCommand =
+  `curl -fsSL ${KEYRINGS_REPO_URL}/omakasui-packages.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/omakasui-packages.gpg` +
+  `\necho "deb [signed-by=/etc/apt/trusted.gpg.d/omakasui-packages.gpg] ${APT_REPO_URL} $(. /etc/os-release && echo $VERSION_CODENAME) main" | sudo tee /etc/apt/sources.list.d/omakasui.list` +
+  `\nsudo apt-get update`;
+---
+
+<Layout title="APT Repository">
+  <section aria-labelledby="apt-setup-heading">
+    <h1 class="sr-only" id="apt-setup-heading">APT Repository</h1>
+    <ShellCommand> $ apt-get source omakasui </ShellCommand>
+
+    <p class="text-foreground mb-6 text-[1.1rem] leading-relaxed">
+      The Omakasui APT repository lets you install and keep all project packages
+      up to date via <code
+        class="border-border-light bg-background-secondary text-primary rounded border px-2 py-0.5 text-sm"
+        >apt</code
+      >. Compatible with <strong class="text-foreground-bright"
+        >Ubuntu 24.04</strong
+      > and <strong class="text-foreground-bright">Debian 13</strong>.
+    </p>
+
+    <div
+      class="border-border-light bg-background-secondary flex items-start gap-2 overflow-hidden rounded-sm border p-3 sm:gap-4 sm:p-4"
+      role="group"
+      aria-label="Full setup command"
+    >
+      <code
+        class="text-primary block min-w-0 flex-1 overflow-x-auto text-xs leading-loose whitespace-pre sm:text-sm"
+        style="scrollbar-width: thin;">{setupCommand}</code
+      >
+      <button
+        class="border-border-light bg-surface text-foreground-secondary hover:bg-surface-hover hover:text-foreground-bright mt-0.5 flex shrink-0 cursor-pointer items-center justify-center rounded border px-2.5 py-1.5 text-xs transition-colors sm:mt-0 sm:px-3 sm:py-2"
+        onclick={`navigator.clipboard.writeText(${JSON.stringify(setupCommand)})`}
+        title="Copy to clipboard"
+        aria-label="Copy full setup command"
+      >
+        <i class="nf nf-md-content_copy"></i>
+      </button>
+    </div>
+  </section>
+
+  <section aria-labelledby="packages-heading">
+    <h2 class="sr-only" id="packages-heading">Available APT Packages</h2>
+    <ShellCommand> $ dpkg -l | grep omakasui </ShellCommand>
+
+    <div
+      class="border-border overflow-x-auto rounded-sm border"
+      style="scrollbar-width: thin;"
+    >
+      <table
+        class="w-full min-w-125 text-sm"
+        aria-label="Available APT packages"
+      >
+        <thead>
+          <tr class="border-border bg-surface border-b">
+            <th
+              class="text-foreground-bright px-4 py-3 text-left font-semibold"
+              scope="col">Package</th
+            >
+            <th
+              class="text-foreground-bright px-4 py-3 text-left font-semibold"
+              scope="col">Version</th
+            >
+            <th
+              class="text-foreground-bright px-4 py-3 text-left font-semibold"
+              scope="col">Suites</th
+            >
+            <th
+              class="text-foreground-bright hidden px-4 py-3 text-left font-semibold md:table-cell"
+              scope="col">Arch.</th
+            >
+          </tr>
+        </thead>
+        <tbody>
+          {
+            aptPackages.map((pkg, i) => (
+              <tr
+                class:list={[
+                  "border-border hover:bg-surface-hover border-b transition-colors",
+                  i === aptPackages.length - 1 ? "border-b-0" : "",
+                ]}
+              >
+                <td class="text-primary px-4 py-3 font-mono whitespace-nowrap">
+                  {pkg.data.url ? (
+                    <a
+                      href={pkg.data.url}
+                      class="hover:underline"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {pkg.data.name}
+                    </a>
+                  ) : (
+                    pkg.data.name
+                  )}
+                </td>
+                <td class="text-foreground-secondary px-4 py-3">
+                  {pkg.data.version}
+                </td>
+                <td class="text-foreground-secondary px-4 py-3">
+                  {pkg.data.suites.join(", ")}
+                </td>
+                <td class="text-foreground-secondary hidden px-4 py-3 md:table-cell">
+                  {pkg.data.architecture.join(", ")}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Layout>

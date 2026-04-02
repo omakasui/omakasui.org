@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import StatusIcon from "@/components/StatusIcon.astro";
 
 const { projects } = Astro.props;
 type Project = CollectionEntry<"projects">;
@@ -9,47 +8,43 @@ type Project = CollectionEntry<"projects">;
 {
   projects.length > 0 &&
     projects.map((project: Project) => (
-      <div class="mb-8 rounded-sm border border-[#333] bg-[#2a2a2a] p-8 transition-colors duration-300 ease-in-out hover:border-[#89b29ee6]">
+      <div class="border-border bg-surface hover:border-primary mb-8 rounded-sm border p-5 transition-colors duration-300 ease-in-out sm:p-8">
         <h3>
-          >
+          <span class="text-foreground-muted mr-1 select-none">&gt;</span>
           {project.data.siteUrl ? (
             <a
               href={project.data.siteUrl}
               target="_blank"
               title={`Visit ${project.data.name} website`}
               rel="noopener"
-              class="text-[1.5rem] font-semibold text-[#89b29ee6] hover:underline"
+              class="text-primary text-xl font-semibold hover:underline sm:text-[1.5rem]"
             >
               {project.data.name}
             </a>
           ) : (
-            <span class="text-[1.5rem] font-semibold text-[#89b29ee6]">
+            <span class="text-primary text-xl font-semibold sm:text-[1.5rem]">
               {project.data.name}
             </span>
           )}
-          {project.data.status.length > 0
-            ? project.data.status.map((status) => (
-                <span class="ml-2 align-middle">
-                  <StatusIcon status={status} />
-                </span>
-              ))
-            : null}
         </h3>
-        <p class="mb-6 text-[#bbb]" set:html={project.data.description} />
+        <p
+          class="text-foreground-secondary mb-6"
+          set:html={project.data.description}
+        />
         <div
-          class="relative mx-0 my-6 flex items-center gap-4 rounded-sm border border-[#444] bg-[#1a1a1a] p-4"
+          class="border-border-light bg-background-secondary relative mx-0 my-6 flex items-center gap-2 rounded-sm border p-3 sm:gap-4 sm:p-4"
           role="group"
           aria-label={`Installation command for ${project.data.name}`}
         >
           <code
-            class="scrollbar-hide flex flex-1 items-center overflow-x-auto bg-none text-[0.9rem] whitespace-nowrap text-[#89b29ee6] lg:overflow-visible"
+            class="text-primary flex min-w-0 flex-1 items-center overflow-x-auto bg-none text-xs whitespace-nowrap sm:text-[0.9rem]"
             aria-label="Installation command"
-            style="scrollbar-width: none; -ms-overflow-style: none;"
+            style="scrollbar-width: thin;"
           >
             {project.data.installCommand}
           </code>
           <button
-            class="ml-8 flex shrink-0 cursor-pointer items-center justify-center rounded border border-[#555] bg-[#333] px-4 py-2 text-[0.75rem] text-[#bbb] transition-colors hover:bg-[#444] hover:text-white"
+            class="border-border-light bg-surface text-foreground-secondary hover:bg-surface-hover hover:text-foreground-bright ml-auto flex shrink-0 cursor-pointer items-center justify-center rounded border px-3 py-2 text-[0.75rem] transition-colors"
             onclick={`navigator.clipboard.writeText('${project.data.installCommand}')`}
             title="Copy to clipboard"
             aria-label="Copy installation command to clipboard"
@@ -58,7 +53,7 @@ type Project = CollectionEntry<"projects">;
           </button>
         </div>
         {project?.data.sourceUrl || project?.data.manualUrl ? (
-          <p class="text-[0.875rem] text-[#bbb] italic">
+          <p class="text-foreground-secondary text-[0.875rem] italic">
             The{" "}
             {project.data.sourceUrl && (
               <a

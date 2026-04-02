@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+
+const links = (await getCollection("navLinks")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string, exact = false) =>
+  exact ? currentPath === href : currentPath.startsWith(href);
+---
+
+<nav
+  class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] sm:gap-x-5 sm:text-sm"
+  aria-label="Site navigation"
+>
+  {
+    links.map((link) => (
+      <a
+        href={link.data.href}
+        class:list={[
+          "font-mono font-normal no-underline transition-colors duration-200",
+          isActive(link.data.href, link.data.exact)
+            ? "text-primary font-semibold"
+            : "text-foreground-muted hover:text-foreground",
+        ]}
+        aria-current={
+          isActive(link.data.href, link.data.exact) ? "page" : undefined
+        }
+      >
+        {link.data.label}
+      </a>
+    ))
+  }
+</nav>

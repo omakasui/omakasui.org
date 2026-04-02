@@ -1,64 +1,76 @@
 ---
-import { getCollection } from "astro:content";
-
+import ShellCommand from "@/components/ShellCommand.astro";
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/layout/Header.astro";
-import ProjectList from "@/components/ProjectList.astro";
-import HiddensToggle from "@/components/HiddensToggle.astro";
-
-const projects = await getCollection("projects");
-
-const activeProjects = projects.filter((project) => !project.data.hidden);
-const hiddenProjects = projects.filter((project) => project.data.hidden);
 ---
 
 <Layout>
-  <Header
-    title="$ omakasui"
-    subtitle="Post-installation scripts for Linux distributions"
-    accessibleName="Omakasui - Home"
-  />
-  <section aria-labelledby="intro-heading">
-    <h2 class="sr-only" id="intro-heading">Introduction</h2>
-    <p class="text-[1.1rem] leading-[1.8] text-[#ccc]">
-      Inspired by
-      <a
+  <section aria-labelledby="welcome-heading">
+    <ShellCommand> $ cat README.md </ShellCommand>
+    <h1 class="text-primary mb-4 text-3xl font-bold" id="welcome-heading">
+      Omakasui
+    </h1>
+    <p class="text-foreground mb-4">
+      Inspired by <a
         href="https://dhh.dk"
         target="_blank"
-        title="David Heinemeier Hansson's website"
-        rel="noopener">DHH's</a
-      >
-      <a
+        rel="noopener"
+        title="David Heinemeier Hansson's website">DHH</a
+      >'s <a
         href="https://omacom.io"
         target="_blank"
-        title="Omacom - DHH's opinionated software collection"
-        rel="noopener">Omacom</a
-      >
-      philosophy,
-      <i>Omakasui</i> is a curated collection of opinionated post-installation scripts
-      for Linux made by <a
-        href="https://lucapattocchio.com"
+        rel="noopener"
+        title="Omacom — DHH's opinionated software collection">Omacom</a
+      > philosophy, <em>Omakasui</em> is a curated collection of opinionated post-installation
+      scripts for Linux made by <a
+        href="https://lucapattocchio.dev"
         target="_blank"
         rel="noopener">Kasui</a
       >. One command, zero hassle: get a ready-to-use system tailored to your
       workflow and preferences.
     </p>
-  </section>
-  <section aria-labelledby="scripts-heading">
-    <h2 class="sr-only" id="scripts-heading">Available scripts</h2>
-    <h2>$ ls projects/</h2>
-    <ProjectList projects={activeProjects} />
-    {
-      hiddenProjects.length > 0 && (
-        <HiddensToggle count={hiddenProjects.length}>
-          <ProjectList projects={hiddenProjects} />
-        </HiddensToggle>
-      )
-    }
+    <p class="text-foreground-secondary">
+      The name is a play on <em>Omakase</em> ("<i>I'll leave it up to you</i>"
+      in Japanese) and doubles as a nod to the creator's nickname. Just like in
+      a sushi restaurant, you trust the chef to serve you the best dishes
+      without needing to make any decisions.
+    </p>
   </section>
 
-  <section aria-labelledby="themes-heading">
-    <h2 class="sr-only" id="themes-heading">Available themes</h2>
-    <h2><a href="/themes" title="Go to themes">$ cd themes/</a></h2>
+  <section aria-labelledby="philosophy-heading">
+    <h2 class="sr-only" id="philosophy-heading">Philosophy</h2>
+    <ShellCommand> $ cat philosophy.md </ShellCommand>
+    <p class="text-foreground-secondary mb-4">
+      Every Omakasui script is a single <code class="text-primary font-mono"
+        >curl | bash</code
+      > away. No manual configuration, no dependency hell, no endless decision fatigue.
+      You run it once and you get a coherent, functional environment ready to work
+      in.
+    </p>
+    <p class="text-foreground-secondary">
+      The setup is opinionated by design. You trust it, the same way you trust a
+      good package manager, and focus on what actually matters.
+    </p>
+  </section>
+
+  <section aria-labelledby="projects-overview-heading">
+    <h2 class="sr-only" id="projects-overview-heading">Projects overview</h2>
+    <ShellCommand> $ ls projects/ </ShellCommand>
+    <ul class="text-foreground-secondary space-y-2">
+      <li>
+        <span class="text-primary font-mono">omabuntu</span> — opinionated post-install
+        script for Ubuntu, based on Omakub, inspired by Omarchy and fixed up nicely
+      </li>
+      <li>
+        <span class="text-primary font-mono">omadeb</span> — the same experience on
+        Debian
+      </li>
+      <li>
+        <span class="text-primary font-mono">dotfiles</span> — personal configuration
+        files, ready to use
+      </li>
+    </ul>
+    <p class="mt-4">
+      <a href="/projects" title="Browse all projects">Browse all projects →</a>
+    </p>
   </section>
 </Layout>
