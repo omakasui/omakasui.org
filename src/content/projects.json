@@ -28,11 +28,11 @@
     "hidden": false
   },
   {
-    "id": "omasway",
-    "name": "omasway",
-    "description": "Opinionated <strong>Ubuntu</strong>/<strong>Sway</strong> Setup",
-    "installCommand": "curl -fsSL https://omakasui.org/omasway | bash",
-    "sourceUrl": "https://github.com/omakasui/omasway",
+    "id": "omaderi",
+    "name": "omaderi",
+    "description": "Opinionated <strong>Debian</strong> and <strong>Niri</strong> Setup",
+    "installCommand": "curl -fsSL https://omakasui.org/omaderi | bash",
+    "sourceUrl": "https://github.com/omakasui/omaderi",
     "hidden": true
   }
 ]
