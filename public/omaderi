@@ -1,0 +1,1 @@
+eval "$(wget -qO- https://raw.githubusercontent.com/omakasui/omaderi/main/boot.sh)"
