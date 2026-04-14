@@ -9,7 +9,7 @@ const KEYRINGS_REPO_URL = "https://keyrings.omakasui.org";
 const APT_REPO_URL = "https://packages.omakasui.org";
 
 const setupCommand =
-  `curl -fsSL ${KEYRINGS_REPO_URL}/omakasui-packages.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/omakasui-packages.gpg` +
+  `curl -fsSL ${KEYRINGS_REPO_URL}/omakasui-packages.gpg.key | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/omakasui-packages.gpg` +
   `\necho "deb [signed-by=/etc/apt/trusted.gpg.d/omakasui-packages.gpg] ${APT_REPO_URL} $(. /etc/os-release && echo $VERSION_CODENAME) main" | sudo tee /etc/apt/sources.list.d/omakasui.list` +
   `\nsudo apt-get update`;
 ---
