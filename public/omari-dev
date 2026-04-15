@@ -1,0 +1,2 @@
+OMARI_REF=dev
+eval "$(wget -qO- https://raw.githubusercontent.com/omakasui/omari/dev/boot.sh)"

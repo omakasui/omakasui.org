@@ -28,11 +28,11 @@
     "hidden": false
   },
   {
-    "id": "omaderi",
-    "name": "omaderi",
+    "id": "omari",
+    "name": "omari",
     "description": "Opinionated <strong>Debian</strong> and <strong>Niri</strong> Setup",
-    "installCommand": "curl -fsSL https://omakasui.org/omaderi | bash",
-    "sourceUrl": "https://github.com/omakasui/omaderi",
+    "installCommand": "curl -fsSL https://omakasui.org/omari | bash",
+    "sourceUrl": "https://github.com/omakasui/omari",
     "hidden": true
   }
 ]
