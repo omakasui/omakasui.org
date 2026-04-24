@@ -29,7 +29,11 @@ const aptPackages = defineCollection({
       }
 
       const text = await response.text();
-      const lines = text.trim().split("\n");
+      const lines = text
+        .replace(/\r\n/g, "\n")
+        .replace(/\r/g, "\n")
+        .trim()
+        .split("\n");
 
       // Group rows by package name; only stable suites (no "-dev" suffix)
       const pkgMap = new Map<
@@ -44,14 +48,16 @@ const aptPackages = defineCollection({
 
       for (const line of lines) {
         if (!line.trim()) continue;
-        const fields = line.split("\t");
+        // Get fields by splitting on tabs or spaces (handle both TSV and space-delimited)
+        const fields = line.split(" ");
         const suite = fields[0];
         const arch = fields[1];
         const name = fields[2];
         const version = fields[3];
         const controlB64 = fields[9] ?? "";
 
-        // Skip dev suite rows
+        // Skip malformed rows or dev suite rows
+        if (fields.length < 4 || !name || !suite) continue;
         if (suite.endsWith("-dev")) continue;
 
         if (!pkgMap.has(name)) {
