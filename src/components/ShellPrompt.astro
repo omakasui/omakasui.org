@@ -12,7 +12,7 @@ const idAddress = await fetch(new URL("https://api.ipify.org?format=json"))
 
 <div class="mb-2 sm:mb-0 sm:flex sm:items-center sm:justify-between">
   <div class="block overflow-hidden font-mono text-xs sm:text-sm">
-    <span id="nav-ip" class="text-foreground-muted"
+    <span class="text-foreground-muted"
       >{idAddress ? `${idAddress}@` : "visitor@"}</span
     ><a
       href="/"
