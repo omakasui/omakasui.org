@@ -2,11 +2,19 @@
 const currentPath = Astro.url.pathname;
 const segments = currentPath.replace(/^\//, "").split("/").filter(Boolean);
 const currentDir = segments.length === 0 ? "~" : `~/${segments[0]}`;
+
+// Fetch the visitor's IP address using the ipify API
+const idAddress = await fetch(new URL("https://api.ipify.org?format=json"))
+  .then((res) => res.json())
+  .then((data) => data.ip)
+  .catch(() => null);
 ---
 
 <div class="mb-2 sm:mb-0 sm:flex sm:items-center sm:justify-between">
   <div class="block overflow-hidden font-mono text-xs sm:text-sm">
-    <span id="nav-ip" class="text-foreground-muted">visitor@</span><a
+    <span id="nav-ip" class="text-foreground-muted"
+      >{idAddress ? `${idAddress}@` : "visitor@"}</span
+    ><a
       href="/"
       aria-label="Omakasui home"
       class="text-primary hover:text-primary-light font-semibold no-underline transition-colors duration-200 select-none"
@@ -18,32 +26,3 @@ const currentDir = segments.length === 0 ? "~" : `~/${segments[0]}`;
     >
   </div>
 </div>
-
-<script is:inline>
-  (function () {
-    function applyIp() {
-      var cached = sessionStorage.getItem("omakasui_ip");
-      var el = document.getElementById("nav-ip");
-      if (el && cached) el.textContent = cached + "@";
-    }
-
-    applyIp();
-
-    document.addEventListener("astro:after-swap", applyIp);
-
-    if (!window.__ipFetched) {
-      window.__ipFetched = true;
-      fetch("https://api.ipify.org?format=json")
-        .then(function (r) {
-          return r.json();
-        })
-        .then(function (data) {
-          if (data && data.ip) {
-            sessionStorage.setItem("omakasui_ip", data.ip);
-            applyIp();
-          }
-        })
-        .catch(function () {});
-    }
-  })();
-</script>
