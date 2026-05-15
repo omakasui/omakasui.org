@@ -21,11 +21,11 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
       astro:
-        specifier: ^6.3.2
-        version: 6.3.2(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.9.0)
+        specifier: ^6.3.3
+        version: 6.3.3(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.9.0)
       jaamd:
         specifier: ^0.2.0
-        version: 0.2.0(astro@6.3.2(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.9.0))
+        version: 0.2.0(astro@6.3.3(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.9.0))
       react:
         specifier: ^19.2.6
         version: 19.2.6
@@ -1017,8 +1017,8 @@ packages:
     resolution: {integrity: sha512-+QDcgc7e+au6EZ0YjMmRRjNoQo5bDMlaR45aWDoFsuxQTCM9qmCHRoiKJPELgckJ8Wmr7vcfpa9eCDHBFh6G4w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  astro@6.3.2:
-    resolution: {integrity: sha512-Wvl/420m99OjKRH9Q+Vk7JBed8H39n66R61FG2ty0yZjQXBplIIXvJWYXUouMn2U4znfjpYe1HLOA2Rpet6uog==}
+  astro@6.3.3:
+    resolution: {integrity: sha512-wvLIZQYbBZt6U8gyflBW4SLBypaqdwLZUH93rT3oT53cmQ0bTGubvMAGjqBRoheOYzYcTJZtW6czztzbu4kQ5g==}
     engines: {node: '>=22.12.0', npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -2265,10 +2265,6 @@ packages:
     resolution: {integrity: sha512-Ae3OVUqifDw0wBriIBS7yVaW44Dp6eSHQcyq4Igc7eN2TJH/2YsicswaW+J/OuMvhpDPOKEgpAZCjkb4hpoyeA==}
     engines: {node: ^16.14.0 || >= 17.3.0}
 
-  tinyexec@1.1.1:
-    resolution: {integrity: sha512-VKS/ZaQhhkKFMANmAOhhXVoIfBXblQxGX1myCQ2faQrfmobMftXeJPcZGp0gS07ocvGJWDLZGyOZDadDBqYIJg==}
-    engines: {node: '>=18'}
-
   tinyexec@1.1.2:
     resolution: {integrity: sha512-dAqSqE/RabpBKI8+h26GfLq6Vb3JVXs30XYQjdMjaj/c2tS8IYYMbIzP599KtRj7c57/wYApb3QjgRgXmrCukA==}
     engines: {node: '>=18'}
@@ -3366,7 +3362,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  astro@6.3.2(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.9.0):
+  astro@6.3.3(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.9.0):
     dependencies:
       '@astrojs/compiler': 4.0.0
       '@astrojs/internal-helpers': 0.9.1
@@ -3411,7 +3407,7 @@ snapshots:
       smol-toml: 1.6.1
       svgo: 4.0.1
       tinyclip: 0.1.12
-      tinyexec: 1.1.1
+      tinyexec: 1.1.2
       tinyglobby: 0.2.16
       ultrahtml: 1.6.0
       unifont: 0.7.4
@@ -4016,9 +4012,9 @@ snapshots:
 
   isexe@2.0.0: {}
 
-  jaamd@0.2.0(astro@6.3.2(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.9.0)):
+  jaamd@0.2.0(astro@6.3.3(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.9.0)):
     dependencies:
-      astro: 6.3.2(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.9.0)
+      astro: 6.3.3(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.9.0)
       remark-directive: 4.0.0
       unist-util-visit: 5.1.0
     transitivePeerDependencies:
@@ -4955,8 +4951,6 @@ snapshots:
   tiny-inflate@1.0.3: {}
 
   tinyclip@0.1.12: {}
-
-  tinyexec@1.1.1: {}
 
   tinyexec@1.1.2: {}
 
