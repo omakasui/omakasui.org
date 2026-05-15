@@ -11,7 +11,7 @@ const isActive = (href: string, exact = false) =>
 ---
 
 <nav
-  class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] sm:gap-x-5 sm:text-sm"
+  class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] sm:gap-x-5 sm:text-sm md:gap-x-8 lg:gap-x-12"
   aria-label="Site navigation"
 >
   {
@@ -21,7 +21,7 @@ const isActive = (href: string, exact = false) =>
         class:list={[
           "font-mono font-normal no-underline transition-colors duration-200",
           isActive(link.data.href, link.data.exact)
-            ? "text-primary font-semibold"
+            ? "text-primary"
             : "text-foreground-muted hover:text-foreground",
         ]}
         aria-current={
