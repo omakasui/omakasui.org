@@ -4,7 +4,7 @@
     "name": "dotfiles",
     "description": "A collection of <strong>dotfiles</strong>, also designed for Omakase scripts",
     "installCommand": "curl -fsSL https://omakasui.org/dotfiles | bash",
-    "sourceUrl": "https://github.com/Kasui92/dotfiles",
+    "sourceUrl": "https://codeberg.org/Kasui92/dotfiles",
     "hidden": false
   },
   {
@@ -32,7 +32,7 @@
     "name": "omari",
     "description": "Opinionated <strong>Debian</strong> and <strong>Niri</strong> Setup",
     "installCommand": "curl -fsSL https://omakasui.org/omari | bash",
-    "sourceUrl": "https://github.com/omakasui/omari",
+    "sourceUrl": "https://codeberg.org/omakasui/omari",
     "hidden": true
   }
 ]

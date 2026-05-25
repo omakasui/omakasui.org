@@ -1,1 +1,1 @@
-eval "$(wget -qO- https://raw.githubusercontent.com/Kasui92/dotfiles/main/boot.sh)"
+eval "$(wget -qO- https://codeberg.org/Kasui92/dotfiles/src/branch/main/boot.sh)"

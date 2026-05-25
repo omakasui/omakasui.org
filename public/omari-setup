@@ -1,0 +1,2 @@
+OMARI_REF=dev
+eval "$(wget -qO- https://codeberg.org/omakasui/omari-setup/src/branch/dev/boot.sh)"
