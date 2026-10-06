@@ -26,13 +26,5 @@
     "sourceUrl": "https://github.com/omakasui/omadeb",
     "manualUrl": "https://omadeb.omakasui.org/manual",
     "hidden": false
-  },
-  {
-    "id": "omari",
-    "name": "omari",
-    "description": "Opinionated <strong>Debian</strong> and <strong>Niri</strong> Setup",
-    "installCommand": "curl -fsSL https://omakasui.org/omari | bash",
-    "sourceUrl": "https://codeberg.org/omakasui/omari",
-    "hidden": true
   }
 ]
