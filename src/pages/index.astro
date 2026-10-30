@@ -10,22 +10,30 @@ import Layout from "@/layouts/Layout.astro";
       Omakasui
     </h1>
     <p class="text-foreground mb-4">
-      Inspired by <a
+      Inspired by{" "}
+      <a
         href="https://dhh.dk"
         target="_blank"
         rel="noopener"
-        title="David Heinemeier Hansson's website">DHH</a
-      >'s <a
+        title="David Heinemeier Hansson's website"
+      >
+        DHH
+      </a>
+      's{" "}
+      <a
         href="https://omacom.io"
         target="_blank"
         rel="noopener"
-        title="Omacom — DHH's opinionated software collection">Omacom</a
-      > philosophy, <em>Omakasui</em> is a curated collection of opinionated post-installation
-      scripts for Linux made by <a
-        href="https://lucapattocchio.dev"
-        target="_blank"
-        rel="noopener">Kasui</a
-      >. One command, zero hassle: get a ready-to-use system tailored to your
+        title="Omacom — DHH's opinionated software collection"
+      >
+        Omacom
+      </a>{" "}
+      philosophy, <em>Omakasui</em> is a curated collection of opinionated
+      post-installation scripts for Linux made by{" "}
+      <a href="https://lucapattocchio.dev" target="_blank" rel="noopener">
+        Kasui
+      </a>
+      . One command, zero hassle: get a ready-to-use system tailored to your
       workflow and preferences.
     </p>
     <p class="text-foreground-secondary">
@@ -37,14 +45,15 @@ import Layout from "@/layouts/Layout.astro";
   </section>
 
   <section aria-labelledby="philosophy-heading">
-    <h2 class="sr-only" id="philosophy-heading">Philosophy</h2>
+    <h2 class="sr-only" id="philosophy-heading">
+      Philosophy
+    </h2>
     <ShellCommand> $ cat philosophy.md </ShellCommand>
     <p class="text-foreground-secondary mb-4">
-      Every Omakasui script is a single <code class="text-primary font-mono"
-        >curl | bash</code
-      > away. No manual configuration, no dependency hell, no endless decision fatigue.
-      You run it once and you get a coherent, functional environment ready to work
-      in.
+      Every Omakasui script is a single{" "}
+      <code class="text-primary font-mono">curl | bash</code> away. No manual
+      configuration, no dependency hell, no endless decision fatigue. You run it
+      once and you get a coherent, functional environment ready to work in.
     </p>
     <p class="text-foreground-secondary">
       The setup is opinionated by design. You trust it, the same way you trust a
@@ -53,24 +62,29 @@ import Layout from "@/layouts/Layout.astro";
   </section>
 
   <section aria-labelledby="projects-overview-heading">
-    <h2 class="sr-only" id="projects-overview-heading">Projects overview</h2>
+    <h2 class="sr-only" id="projects-overview-heading">
+      Projects overview
+    </h2>
     <ShellCommand> $ ls projects/ </ShellCommand>
     <ul class="text-foreground-secondary space-y-2">
       <li>
-        <span class="text-primary font-mono">omabuntu</span> — opinionated post-install
-        script for Ubuntu, based on Omakub, inspired by Omarchy and fixed up nicely
+        <span class="text-primary font-mono">omabuntu</span> — opinionated
+        post-install script for Ubuntu, based on Omakub, inspired by Omarchy and
+        fixed up nicely
       </li>
       <li>
-        <span class="text-primary font-mono">omadeb</span> — the same experience on
-        Debian
+        <span class="text-primary font-mono">omadeb</span> — the same experience
+        on Debian
       </li>
       <li>
-        <span class="text-primary font-mono">dotfiles</span> — personal configuration
-        files, ready to use
+        <span class="text-primary font-mono">omadots</span> — dotfiles
+        management, the same way for your configuration files
       </li>
     </ul>
     <p class="mt-4">
-      <a href="/projects" title="Browse all projects">Browse all projects →</a>
+      <a href="/projects" title="Browse all projects">
+        Browse all projects →
+      </a>
     </p>
   </section>
 </Layout>

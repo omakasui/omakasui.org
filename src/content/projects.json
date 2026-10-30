@@ -1,13 +1,5 @@
 [
   {
-    "id": "dotfiles",
-    "name": "dotfiles",
-    "description": "A collection of <strong>dotfiles</strong>, also designed for Omakase scripts",
-    "installCommand": "curl -fsSL https://omakasui.org/dotfiles | bash",
-    "sourceUrl": "https://codeberg.org/Kasui92/dotfiles",
-    "hidden": false
-  },
-  {
     "id": "omabuntu",
     "name": "omabuntu",
     "description": "A fork of <a href=\"https://omakub.org\" target=\"_blank\" title=\"View Omakub website\" rel=\"noopener\">Omakub</a>, more flexible and refined",
@@ -25,6 +17,14 @@
     "siteUrl": "https://omadeb.omakasui.org",
     "sourceUrl": "https://github.com/omakasui/omadeb",
     "manualUrl": "https://omadeb.omakasui.org/manual",
+    "hidden": false
+  },
+  {
+    "id": "omadots",
+    "name": "omadots",
+    "description": "Manages your <strong>dotfiles</strong> the way Omabuntu and Omadeb manage the rest of the system",
+    "installCommand": "curl -fsSL https://omakasui.org/omadots | bash",
+    "sourceUrl": "https://github.com/omakasui/omadots",
     "hidden": false
   }
 ]
