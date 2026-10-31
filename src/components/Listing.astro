@@ -1,0 +1,33 @@
+---
+interface Item {
+  name: string;
+  href?: string;
+  description: string;
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+---
+
+<dl class="text-foreground-secondary grid grid-cols-1 gap-x-6 sm:grid-cols-[auto_1fr] sm:gap-y-2">
+  {items.map((item) => (
+    <>
+      <dt class="text-primary font-mono">
+        {item.href ? (
+          <a
+            href={item.href}
+            class="font-normal no-underline decoration-1 underline-offset-2 hover:underline"
+          >
+            {item.name}
+          </a>
+        ) : (
+          item.name
+        )}
+      </dt>
+      <dd class="mb-2 sm:mb-0" set:html={item.description} />
+    </>
+  ))}
+</dl>

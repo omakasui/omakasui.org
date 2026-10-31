@@ -2,26 +2,43 @@
 import { getCollection } from "astro:content";
 
 import Layout from "@/layouts/Layout.astro";
-import ProjectList from "@/components/ProjectList.astro";
+import Listing from "@/components/Listing.astro";
+import ProjectTree from "@/components/ProjectTree.astro";
 import HiddensToggle from "@/components/HiddensToggle.astro";
+import Readme from "@/components/Readme.astro";
 import ShellCommand from "@/components/ShellCommand.astro";
 
-const projects = await getCollection("projects");
+const projects = (await getCollection("projects")).sort((a, b) =>
+  a.data.name.localeCompare(b.data.name),
+);
 const activeProjects = projects.filter((p) => !p.data.hidden);
 const hiddenProjects = projects.filter((p) => p.data.hidden);
 ---
 
 <Layout title="Projects">
-  <section aria-labelledby="projects-heading">
-    <h1 class="sr-only" id="projects-heading">Projects</h1>
-    <ShellCommand> $ ls -la projects/ </ShellCommand>
-    <ProjectList projects={activeProjects} />
-    {
-      hiddenProjects.length > 0 && (
-        <HiddensToggle count={hiddenProjects.length}>
-          <ProjectList projects={hiddenProjects} />
-        </HiddensToggle>
-      )
-    }
+  <Readme title="Projects" id="projects-heading">
+    <p class="text-foreground-secondary mb-6">
+      Everything Omakasui ships, one folder per repository.
+    </p>
+    <Listing
+      items={activeProjects.map(({ data }) => ({
+        name: data.name,
+        href: `#${data.id}`,
+        description: data.description,
+      }))}
+    />
+  </Readme>
+
+  <section aria-labelledby="tree-heading">
+    <h2 class="sr-only" id="tree-heading">
+      Project tree
+    </h2>
+    <ShellCommand> $ tree -F projects/ </ShellCommand>
+    <ProjectTree projects={activeProjects} root="projects/" />
+    {hiddenProjects.length > 0 && (
+      <HiddensToggle count={hiddenProjects.length}>
+        <ProjectTree projects={hiddenProjects} dotPrefix />
+      </HiddensToggle>
+    )}
   </section>
 </Layout>
