@@ -124,11 +124,11 @@ const projects = defineCollection({
     id: z.string(),
     name: z.string(),
     description: z.string(),
-    installCommand: z.string(),
+    installCommand: z.string().optional(),
     siteUrl: z.string().optional(),
     sourceUrl: z.string().optional(),
     manualUrl: z.string().optional(),
-    hidden: z.boolean(),
+    hidden: z.boolean().default(false),
   }),
 });
 
