@@ -11,35 +11,35 @@ const modalId = `modal-${id}`;
 
 <button
   class="block w-full cursor-pointer"
-  onclick={`openImageModal('${modalId}')`}
+  data-modal-open={modalId}
   title={`Open preview of ${name}`}
   data-image={src}
   data-name={name}
 >
-  {
-    src ? (
-      <img
-        src={src}
-        alt={`${name} preview`}
-        class="h-48 w-full rounded-lg object-cover transition-transform duration-300 ease-in-out hover:scale-105"
-        loading="lazy"
-      />
-    ) : (
-      <div class="flex h-48 w-full items-center justify-center rounded-lg bg-gray-200 text-6xl opacity-70">
-        <i class="nf nf-fa-picture_o" />
-      </div>
-    )
-  }
+  {src ? (
+    <img
+      src={src}
+      alt={`${name} preview`}
+      class="h-48 w-full rounded-lg object-cover transition-transform duration-300 ease-in-out hover:scale-105"
+      loading="lazy"
+    />
+  ) : (
+    <div class="flex h-48 w-full items-center justify-center rounded-lg bg-gray-200 text-6xl opacity-70">
+      <i class="nf nf-fa-picture_o" />
+    </div>
+  )}
 </button>
 
 <div
   id={modalId}
   class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4"
+  data-modal
 >
   <div class="relative max-h-full max-w-full">
     <button
       class="absolute -top-10 right-0 cursor-pointer text-2xl text-white transition-colors hover:text-gray-300"
-      onclick={`closeImageModal('${modalId}')`}
+      data-modal-close
+      aria-label="Close preview"
     >
       <i class="nf nf-md-close"></i>
     </button>
@@ -52,45 +52,38 @@ const modalId = `modal-${id}`;
   </div>
 </div>
 
-<script is:inline define:vars={{ modalId, src, name }}>
-  if (typeof window.openImageModal === "undefined") {
-    window.openImageModal = function (modalId) {
-      const button = event.target.closest("button");
-      const imageSrc = button.getAttribute("data-image");
-      const imageName = button.getAttribute("data-name");
+<script>
+  const open = (trigger: HTMLElement) => {
+    const imageSrc = trigger.dataset.image;
+    const modal = document.getElementById(trigger.dataset.modalOpen ?? "");
+    const image = modal?.querySelector("img");
+    if (!imageSrc || !modal || !image) return;
 
-      if (!imageSrc) return;
+    image.src = imageSrc;
+    image.alt = `${trigger.dataset.name} full size`;
+    modal.classList.replace("hidden", "flex");
+    document.body.style.overflow = "hidden";
+  };
 
-      const modal = document.getElementById(modalId);
-      const modalImage = document.getElementById(`${modalId}-image`);
+  const close = (modal: HTMLElement) => {
+    modal.classList.replace("flex", "hidden");
+    document.body.style.overflow = "auto";
+  };
 
-      modalImage.src = imageSrc;
-      modalImage.alt = `${imageName} full size`;
+  document.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+    const trigger = target.closest<HTMLElement>("[data-modal-open]");
+    if (trigger) return open(trigger);
 
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
-      document.body.style.overflow = "hidden";
-    };
-
-    window.closeImageModal = function (modalId) {
-      const modal = document.getElementById(modalId);
-      modal.classList.add("hidden");
-      modal.classList.remove("flex");
-      document.body.style.overflow = "auto";
-    };
-  }
-
-  const modal = document.getElementById(modalId);
-
-  modal.addEventListener("click", function (e) {
-    if (e.target === this) {
-      window.closeImageModal(modalId);
-    }
+    const modal = target.closest<HTMLElement>("[data-modal]");
+    if (modal && (target === modal || target.closest("[data-modal-close]")))
+      close(modal);
   });
 
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-      window.closeImageModal(modalId);
-    }
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    document
+      .querySelectorAll<HTMLElement>("[data-modal].flex")
+      .forEach((modal) => close(modal));
   });
 </script>
