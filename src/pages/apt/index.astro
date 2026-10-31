@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
+import Readme from "@/components/Readme.astro";
 import ShellCommand from "@/components/ShellCommand.astro";
 
 const aptPackages = await getCollection("aptPackages");
@@ -10,20 +11,11 @@ const devSetupCommand = `${setupCommand} -s -- --dev`;
 ---
 
 <Layout title="APT Repository">
-  <section aria-labelledby="apt-setup-heading">
-    <h1 class="sr-only" id="apt-setup-heading">
-      APT Repository
-    </h1>
-    <ShellCommand> $ apt-get source omakasui </ShellCommand>
-
-    <p class="text-foreground mb-6 text-[1.1rem] leading-relaxed">
+  <Readme title="APT Repository" id="apt-setup-heading">
+    <p class="text-foreground mb-6">
       The Omakasui APT repository lets you install and keep all project packages
-      up to date via{" "}
-      <code class="border-border-light bg-background-secondary text-primary rounded border px-2 py-0.5 text-sm">
-        apt
-      </code>
-      . Compatible with{" "}
-      <strong class="text-foreground-bright">Ubuntu 24.04</strong>,{" "}
+      up to date via <code class="text-primary font-mono">apt</code>. Compatible
+      with <strong class="text-foreground-bright">Ubuntu 24.04</strong>,{" "}
       <strong class="text-foreground-bright">Ubuntu 26.04</strong> and{" "}
       <strong class="text-foreground-bright">Debian 13</strong>.
     </p>
@@ -53,7 +45,7 @@ const devSetupCommand = `${setupCommand} -s -- --dev`;
       For the dev channel:{" "}
       <code class="text-primary font-mono break-all">{devSetupCommand}</code>
     </p>
-  </section>
+  </Readme>
 
   <section aria-labelledby="packages-heading">
     <h2 class="sr-only" id="packages-heading">

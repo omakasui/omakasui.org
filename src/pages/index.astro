@@ -1,14 +1,23 @@
 ---
-import ShellCommand from "@/components/ShellCommand.astro";
+import { getCollection } from "astro:content";
+
 import Layout from "@/layouts/Layout.astro";
+import Listing from "@/components/Listing.astro";
+import Readme from "@/components/Readme.astro";
+import ShellCommand from "@/components/ShellCommand.astro";
+
+const sections = (await getCollection("navLinks"))
+  .filter((link) => !link.data.exact)
+  .sort((a, b) => a.data.label.localeCompare(b.data.label))
+  .map(({ data }) => ({
+    name: data.label,
+    href: data.href,
+    description: data.description ?? "",
+  }));
 ---
 
 <Layout>
-  <section aria-labelledby="welcome-heading">
-    <ShellCommand> $ cat README.md </ShellCommand>
-    <h1 class="text-primary mb-4 text-3xl font-bold" id="welcome-heading">
-      Omakasui
-    </h1>
+  <Readme title="Omakasui" id="welcome-heading">
     <p class="text-foreground mb-4">
       Inspired by{" "}
       <a
@@ -42,7 +51,7 @@ import Layout from "@/layouts/Layout.astro";
       a sushi restaurant, you trust the chef to serve you the best dishes
       without needing to make any decisions.
     </p>
-  </section>
+  </Readme>
 
   <section aria-labelledby="philosophy-heading">
     <h2 class="sr-only" id="philosophy-heading">
@@ -61,30 +70,11 @@ import Layout from "@/layouts/Layout.astro";
     </p>
   </section>
 
-  <section aria-labelledby="projects-overview-heading">
-    <h2 class="sr-only" id="projects-overview-heading">
-      Projects overview
+  <section aria-labelledby="sitemap-heading">
+    <h2 class="sr-only" id="sitemap-heading">
+      Sitemap
     </h2>
-    <ShellCommand> $ ls projects/ </ShellCommand>
-    <ul class="text-foreground-secondary space-y-2">
-      <li>
-        <span class="text-primary font-mono">omabuntu</span> — opinionated
-        post-install script for Ubuntu, based on Omakub, inspired by Omarchy and
-        fixed up nicely
-      </li>
-      <li>
-        <span class="text-primary font-mono">omadeb</span> — the same experience
-        on Debian
-      </li>
-      <li>
-        <span class="text-primary font-mono">omadots</span> — dotfiles
-        management, the same way for your configuration files
-      </li>
-    </ul>
-    <p class="mt-4">
-      <a href="/projects" title="Browse all projects">
-        Browse all projects →
-      </a>
-    </p>
+    <ShellCommand> $ ls -F </ShellCommand>
+    <Listing items={sections} />
   </section>
 </Layout>

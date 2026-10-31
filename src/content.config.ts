@@ -8,6 +8,7 @@ const navLinks = defineCollection({
     id: z.string(),
     href: z.string(),
     label: z.string(),
+    description: z.string().optional(),
     exact: z.boolean().default(false),
     order: z.number(),
   }),
