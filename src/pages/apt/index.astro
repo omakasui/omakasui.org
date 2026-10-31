@@ -54,6 +54,33 @@ const devSetupCommand = `${setupCommand} -s -- --dev`;
     <ShellCommand> $ dpkg -l | grep omakasui </ShellCommand>
 
     <div
+      class="border-border-light bg-background-secondary focus-within:border-primary mb-6 flex items-center gap-2 rounded-sm border px-3 py-2 transition-colors sm:gap-3 sm:px-4 sm:py-3"
+      role="search"
+    >
+      <span
+        class="text-foreground-muted shrink-0 font-mono text-xs select-none sm:text-sm"
+        aria-hidden="true"
+      >
+        $ grep -i
+      </span>
+      <input
+        id="apt-filter"
+        type="text"
+        placeholder="search packages..."
+        aria-label="Search APT packages"
+        autocomplete="off"
+        spellcheck="false"
+        class="text-primary placeholder:text-foreground-muted min-w-0 flex-1 border-none bg-transparent font-mono text-xs outline-none sm:text-sm"
+      />
+      <span
+        id="apt-filter-count"
+        class="text-foreground-muted shrink-0 font-mono text-xs"
+        aria-live="polite"
+        hidden
+      ></span>
+    </div>
+
+    <div
       class="border-border overflow-x-auto rounded-sm border"
       style="scrollbar-width: thin;"
     >
@@ -90,12 +117,15 @@ const devSetupCommand = `${setupCommand} -s -- --dev`;
           </tr>
         </thead>
         <tbody>
-          {aptPackages.map((pkg, i) => (
+          {aptPackages.map((pkg) => (
             <tr
-              class:list={[
-                "border-border hover:bg-surface-hover border-b transition-colors",
-                i === aptPackages.length - 1 ? "border-b-0" : "",
-              ]}
+              class="border-border hover:bg-surface-hover border-t transition-colors"
+              data-filter={[
+                pkg.data.name,
+                pkg.data.version,
+                ...pkg.data.suites,
+                ...pkg.data.architecture,
+              ].join(" ")}
             >
               <td class="text-primary px-4 py-3 font-mono whitespace-nowrap">
                 {pkg.data.url ? (
@@ -123,7 +153,67 @@ const devSetupCommand = `${setupCommand} -s -- --dev`;
             </tr>
           ))}
         </tbody>
+        <tr class="border-border border-t" data-filter-empty hidden>
+          <td
+            class="text-foreground-muted px-4 py-3 font-mono italic"
+            colspan="4"
+          ></td>
+        </tr>
       </table>
     </div>
   </section>
 </Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const input = document.getElementById("apt-filter") as HTMLInputElement;
+    if (!input || input.hasAttribute("data-bound")) return;
+    input.setAttribute("data-bound", "");
+
+    const rows = document.querySelectorAll<HTMLElement>("tr[data-filter]");
+    const empty = document.querySelector<HTMLTableRowElement>(
+      "tr[data-filter-empty]",
+    );
+    const count = document.getElementById("apt-filter-count");
+
+    const toMatcher = (pattern: string) => {
+      try {
+        const re = new RegExp(pattern, "i");
+        return (text: string) => re.test(text);
+      } catch {
+        const needle = pattern.toLowerCase();
+        return (text: string) => text.toLowerCase().includes(needle);
+      }
+    };
+
+    const apply = () => {
+      const query = input.value.trim();
+      const matches = toMatcher(query);
+      let visible = 0;
+      rows.forEach((row) => {
+        const hit = matches(row.dataset.filter ?? "");
+        row.hidden = !hit;
+        if (hit) visible++;
+      });
+      if (empty) {
+        empty.hidden = visible > 0;
+        empty.cells[0].textContent = `grep: no matches for '${query}'`;
+      }
+      if (count) {
+        count.hidden = !query;
+        count.textContent = `${visible} match${visible === 1 ? "" : "es"}`;
+      }
+    };
+
+    let timer: ReturnType<typeof setTimeout>;
+    input.addEventListener("input", () => {
+      clearTimeout(timer);
+      timer = setTimeout(apply, 150);
+    });
+    input.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      input.value = "";
+      apply();
+    });
+  });
+</script>
