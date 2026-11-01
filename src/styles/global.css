@@ -44,6 +44,10 @@
         scroll-behavior: smooth;
     }
 
+    html:has(dialog:modal) {
+        overflow: hidden;
+    }
+
     h1,
     h2,
     h3 {

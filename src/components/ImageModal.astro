@@ -10,10 +10,16 @@ interface Props {
 }
 
 const { src, name, id, priority = false } = Astro.props
-const modalId = `modal-${id}`
+const dialogId = `modal-${id}`
 ---
 
-<button class="block w-full cursor-pointer" data-modal-open={modalId} title={`Open preview of ${name}`}>
+<button
+    type="button"
+    class="block w-full cursor-pointer"
+    commandfor={dialogId}
+    command="show-modal"
+    title={`Open preview of ${name}`}
+>
     <Image
         src={src}
         width={800}
@@ -24,50 +30,26 @@ const modalId = `modal-${id}`
     />
 </button>
 
-<div id={modalId} class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4" data-modal>
-    <div class="relative max-h-full max-w-full">
-        <button
-            class="absolute -top-10 right-0 cursor-pointer text-2xl text-white transition-colors hover:text-gray-300"
-            data-modal-close
-            aria-label="Close preview"
-        >
-            <i class="nf nf-md-close"></i>
-        </button>
-        <Image
-            src={src}
-            alt={`${name} full size`}
-            class="max-h-[90vh] w-auto max-w-full rounded-lg shadow-2xl"
-            loading="eager"
-            fetchpriority="low"
-        />
-    </div>
-</div>
-
-<script>
-    const open = (trigger: HTMLElement) => {
-        const modal = document.getElementById(trigger.dataset.modalOpen ?? '')
-        if (!modal) return
-
-        modal.classList.replace('hidden', 'flex')
-        document.body.style.overflow = 'hidden'
-    }
-
-    const close = (modal: HTMLElement) => {
-        modal.classList.replace('flex', 'hidden')
-        document.body.style.overflow = 'auto'
-    }
-
-    document.addEventListener('click', (e) => {
-        const target = e.target as HTMLElement
-        const trigger = target.closest<HTMLElement>('[data-modal-open]')
-        if (trigger) return open(trigger)
-
-        const modal = target.closest<HTMLElement>('[data-modal]')
-        if (modal && (target === modal || target.closest('[data-modal-close]'))) close(modal)
-    })
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key !== 'Escape') return
-        document.querySelectorAll<HTMLElement>('[data-modal].flex').forEach((modal) => close(modal))
-    })
-</script>
+<dialog
+    id={dialogId}
+    closedby="any"
+    aria-label={`${name} preview`}
+    class="m-auto max-h-none max-w-none overflow-visible bg-transparent p-0 backdrop:bg-black/50"
+>
+    <button
+        type="button"
+        class="absolute -top-10 right-0 cursor-pointer text-2xl text-white transition-colors hover:text-gray-300"
+        commandfor={dialogId}
+        command="close"
+        aria-label="Close preview"
+    >
+        <i class="nf nf-md-close"></i>
+    </button>
+    <Image
+        src={src}
+        alt={`${name} full size`}
+        class="max-h-[90vh] w-auto max-w-[calc(100vw-2rem)] rounded-lg shadow-2xl"
+        loading="eager"
+        fetchpriority="low"
+    />
+</dialog>
