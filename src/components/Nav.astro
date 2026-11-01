@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 
-const links = (await getCollection("navLinks")).sort(
+const links = (await getCollection("navLinks")).toSorted(
   (a, b) => a.data.order - b.data.order,
 );
 

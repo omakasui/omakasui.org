@@ -8,7 +8,7 @@ import ShellCommand from "@/components/ShellCommand.astro";
 
 const sections = (await getCollection("navLinks"))
   .filter((link) => !link.data.exact)
-  .sort((a, b) => a.data.label.localeCompare(b.data.label))
+  .toSorted((a, b) => a.data.label.localeCompare(b.data.label))
   .map(({ data }) => ({
     name: data.label,
     href: data.href,

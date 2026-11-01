@@ -6,7 +6,7 @@ import ThemesList from "@/components/ThemesList.astro";
 import Readme from "@/components/Readme.astro";
 import ShellCommand from "@/components/ShellCommand.astro";
 
-const themes = (await getCollection("themes")).sort((a, b) =>
+const themes = (await getCollection("themes")).toSorted((a, b) =>
   a.data.name.localeCompare(b.data.name),
 );
 ---

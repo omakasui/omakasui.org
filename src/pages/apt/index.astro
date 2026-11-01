@@ -165,6 +165,16 @@ const devSetupCommand = `${setupCommand} -s -- --dev`;
 </Layout>
 
 <script>
+  const toMatcher = (pattern: string) => {
+    try {
+      const re = new RegExp(pattern, "i");
+      return (text: string) => re.test(text);
+    } catch {
+      const needle = pattern.toLowerCase();
+      return (text: string) => text.toLowerCase().includes(needle);
+    }
+  };
+
   document.addEventListener("astro:page-load", () => {
     const input = document.getElementById("apt-filter") as HTMLInputElement;
     if (!input || input.hasAttribute("data-bound")) return;
@@ -175,16 +185,6 @@ const devSetupCommand = `${setupCommand} -s -- --dev`;
       "tr[data-filter-empty]",
     );
     const count = document.getElementById("apt-filter-count");
-
-    const toMatcher = (pattern: string) => {
-      try {
-        const re = new RegExp(pattern, "i");
-        return (text: string) => re.test(text);
-      } catch {
-        const needle = pattern.toLowerCase();
-        return (text: string) => text.toLowerCase().includes(needle);
-      }
-    };
 
     const apply = () => {
       const query = input.value.trim();

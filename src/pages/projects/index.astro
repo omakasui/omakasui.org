@@ -8,7 +8,7 @@ import HiddensToggle from "@/components/HiddensToggle.astro";
 import Readme from "@/components/Readme.astro";
 import ShellCommand from "@/components/ShellCommand.astro";
 
-const projects = (await getCollection("projects")).sort((a, b) =>
+const projects = (await getCollection("projects")).toSorted((a, b) =>
   a.data.name.localeCompare(b.data.name),
 );
 const activeProjects = projects.filter((p) => !p.data.hidden);
