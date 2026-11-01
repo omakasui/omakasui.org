@@ -1,95 +1,73 @@
 ---
-import { ClientRouter } from "astro:transitions";
-
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
-
-import "@/styles/global.css";
+import { ClientRouter } from 'astro:transitions'
+import Footer from '@/components/Footer.astro'
+import Header from '@/components/Header.astro'
+import '@/styles/global.css'
 
 interface Props {
-  title?: string;
+    title?: string
 }
 
-const { title } = Astro.props;
+const { title } = Astro.props
 ---
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <ClientRouter />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <ClientRouter />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
-    />
-    <!-- Nerd Fonts icons -->
-    <link
-      rel="stylesheet"
-      href="https://www.nerdfonts.com/assets/css/webfont.css"
-    />
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        />
+        <!-- Nerd Fonts icons -->
+        <link rel="stylesheet" href="https://www.nerdfonts.com/assets/css/webfont.css" />
 
-    <meta
-      name="description"
-      content="Omakasui - A curated collection of opinionated post-installation scripts for Linux distributions"
-    />
-    <title>
+        <meta
+            name="description"
+            content="Omakasui - A curated collection of opinionated post-installation scripts for Linux distributions"
+        />
+        <title>
       Omakasui{title ? ` - ${title}` : ` - Post-Installation Scripts for Linux`}
     </title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link
-      rel="icon"
-      href="/android-chrome-192x192.png"
-      type="image/png"
-      sizes="192x192"
-    />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="icon" href="/android-chrome-192x192.png" type="image/png" sizes="192x192" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:url" content="https://omakasui.org" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="Omakasui - Post-Installation Scripts for Linux"
-    />
-    <meta
-      property="og:description"
-      content="A curated collection of opinionated post-installation scripts for Linux distributions"
-    />
-    <meta property="og:image" content="https://omakasui.org/og-image.png" />
+        <!-- Open Graph Meta Tags -->
+        <meta property="og:url" content="https://omakasui.org" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Omakasui - Post-Installation Scripts for Linux" />
+        <meta
+            property="og:description"
+            content="A curated collection of opinionated post-installation scripts for Linux distributions"
+        />
+        <meta property="og:image" content="https://omakasui.org/og-image.png" />
 
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta property="twitter:domain" content="omakasui.org" />
-    <meta property="twitter:url" content="https://omakasui.org" />
-    <meta
-      name="twitter:title"
-      content="Omakasui - Post-Installation Scripts for Linux"
-    />
-    <meta
-      name="twitter:description"
-      content="A curated collection of opinionated post-installation scripts for Linux distributions"
-    />
-    <meta name="twitter:image" content="https://omakasui.org/og-image.png" />
+        <!-- Twitter Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="omakasui.org" />
+        <meta property="twitter:url" content="https://omakasui.org" />
+        <meta name="twitter:title" content="Omakasui - Post-Installation Scripts for Linux" />
+        <meta
+            name="twitter:description"
+            content="A curated collection of opinionated post-installation scripts for Linux distributions"
+        />
+        <meta name="twitter:image" content="https://omakasui.org/og-image.png" />
 
-    <meta name="generator" content={Astro.generator} />
-  </head>
-  <body
-    class="bg-background text-foreground flex min-h-screen flex-col font-mono text-sm leading-relaxed"
-  >
-    <Header />
-    <main
-      role="main"
-      aria-label="Main content"
-      class="flex-1 px-4 py-0 md:px-2 lg:px-0"
-    >
-      <slot />
-    </main>
-    <Footer />
-  </body>
+        <meta name="generator" content={Astro.generator} />
+    </head>
+    <body class="bg-background text-foreground flex min-h-screen flex-col font-mono text-sm leading-relaxed">
+        <Header />
+        <main role="main" aria-label="Main content" class="flex-1 px-4 py-0 md:px-2 lg:px-0">
+            <slot />
+        </main>
+        <Footer />
+    </body>
 </html>

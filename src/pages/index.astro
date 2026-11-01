@@ -1,80 +1,71 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection } from 'astro:content'
+import Listing from '@/components/Listing.astro'
+import Readme from '@/components/Readme.astro'
+import ShellCommand from '@/components/ShellCommand.astro'
+import Layout from '@/layouts/Layout.astro'
 
-import Layout from "@/layouts/Layout.astro";
-import Listing from "@/components/Listing.astro";
-import Readme from "@/components/Readme.astro";
-import ShellCommand from "@/components/ShellCommand.astro";
-
-const sections = (await getCollection("navLinks"))
-  .filter((link) => !link.data.exact)
-  .toSorted((a, b) => a.data.label.localeCompare(b.data.label))
-  .map(({ data }) => ({
-    name: data.label,
-    href: data.href,
-    description: data.description ?? "",
-  }));
+const sections = (await getCollection('navLinks'))
+    .filter((link) => !link.data.exact)
+    .toSorted((a, b) => a.data.label.localeCompare(b.data.label))
+    .map(({ data }) => ({
+        name: data.label,
+        href: data.href,
+        description: data.description ?? '',
+    }))
 ---
 
 <Layout>
-  <Readme title="Omakasui" id="welcome-heading">
-    <p class="text-foreground mb-4">
-      Inspired by{" "}
-      <a
-        href="https://dhh.dk"
-        target="_blank"
-        rel="noopener"
-        title="David Heinemeier Hansson's website"
-      >
-        DHH
-      </a>
-      's{" "}
-      <a
-        href="https://omacom.io"
-        target="_blank"
-        rel="noopener"
-        title="Omacom — DHH's opinionated software collection"
-      >
-        Omacom
-      </a>{" "}
-      philosophy, <em>Omakasui</em> is a curated collection of opinionated
-      post-installation scripts for Linux made by{" "}
-      <a href="https://lucapattocchio.dev" target="_blank" rel="noopener">
-        Kasui
-      </a>
-      . One command, zero hassle: get a ready-to-use system tailored to your
-      workflow and preferences.
-    </p>
-    <p class="text-foreground-secondary">
-      The name is a play on <em>Omakase</em> ("<i>I'll leave it up to you</i>"
-      in Japanese) and doubles as a nod to the creator's nickname. Just like in
-      a sushi restaurant, you trust the chef to serve you the best dishes
-      without needing to make any decisions.
-    </p>
-  </Readme>
+    <Readme title="Omakasui" id="welcome-heading">
+        <p class="text-foreground mb-4">
+            Inspired by{' '}
+            <a href="https://dhh.dk" target="_blank" rel="noopener" title="David Heinemeier Hansson's website">
+                DHH
+            </a>
+            's{' '}
+            <a
+                href="https://omacom.io"
+                target="_blank"
+                rel="noopener"
+                title="Omacom — DHH's opinionated software collection"
+            >
+                Omacom
+            </a>{' '}
+            philosophy, <em>Omakasui</em> is a curated collection of opinionated post-installation scripts for Linux
+            made by{' '}
+            <a href="https://lucapattocchio.dev" target="_blank" rel="noopener">
+                Kasui
+            </a>
+            . One command, zero hassle: get a ready-to-use system tailored to your workflow and preferences.
+        </p>
+        <p class="text-foreground-secondary">
+            The name is a play on <em>Omakase</em> ("<i>I'll leave it up to you</i>" in Japanese) and doubles as a nod
+            to the creator's nickname. Just like in a sushi restaurant, you trust the chef to serve you the best dishes
+            without needing to make any decisions.
+        </p>
+    </Readme>
 
-  <section aria-labelledby="philosophy-heading">
-    <h2 class="sr-only" id="philosophy-heading">
-      Philosophy
-    </h2>
-    <ShellCommand> $ cat philosophy.md </ShellCommand>
-    <p class="text-foreground-secondary mb-4">
-      Every Omakasui script is a single{" "}
-      <code class="text-primary font-mono">curl | bash</code> away. No manual
-      configuration, no dependency hell, no endless decision fatigue. You run it
-      once and you get a coherent, functional environment ready to work in.
-    </p>
-    <p class="text-foreground-secondary">
-      The setup is opinionated by design. You trust it, the same way you trust a
-      good package manager, and focus on what actually matters.
-    </p>
-  </section>
+    <section aria-labelledby="philosophy-heading">
+        <h2 class="sr-only" id="philosophy-heading">
+            Philosophy
+        </h2>
+        <ShellCommand> $ cat philosophy.md </ShellCommand>
+        <p class="text-foreground-secondary mb-4">
+            Every Omakasui script is a single <code class="text-primary font-mono">curl | bash</code> away. No manual
+            configuration, no dependency hell, no endless decision fatigue. You run it once and you get a coherent,
+            functional environment ready to work in.
+        </p>
+        <p class="text-foreground-secondary">
+            The setup is opinionated by design. You trust it, the same way you trust a good package manager, and focus
+            on what actually matters.
+        </p>
+    </section>
 
-  <section aria-labelledby="sitemap-heading">
-    <h2 class="sr-only" id="sitemap-heading">
-      Sitemap
-    </h2>
-    <ShellCommand> $ ls -F </ShellCommand>
-    <Listing items={sections} />
-  </section>
+    <section aria-labelledby="sitemap-heading">
+        <h2 class="sr-only" id="sitemap-heading">
+            Sitemap
+        </h2>
+        <ShellCommand> $ ls -F </ShellCommand>
+        <Listing items={sections} />
+    </section>
 </Layout>

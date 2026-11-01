@@ -1,28 +1,28 @@
 ---
-const currentPath = Astro.url.pathname;
-const segments = currentPath.replace(/^\//, "").split("/").filter(Boolean);
-const currentDir = segments.length === 0 ? "~" : `~/${segments[0]}`;
+const currentPath = Astro.url.pathname
+const segments = currentPath.replace(/^\//, '').split('/').filter(Boolean)
+const currentDir = segments.length === 0 ? '~' : `~/${segments[0]}`
 
 // Fetch the visitor's IP address using the ipify API
-const idAddress = await fetch(new URL("https://api.ipify.org?format=json"))
-  .then((res) => res.json())
-  .then((data) => data.ip)
-  .catch(() => null);
+const idAddress = await fetch(new URL('https://api.ipify.org?format=json'))
+    .then((res) => res.json())
+    .then((data) => data.ip)
+    .catch(() => null)
 ---
 
 <div class="mb-2 sm:mb-0 sm:flex sm:items-center sm:justify-between">
-  <div class="block overflow-hidden font-mono text-xs sm:text-sm">
-    <span class="text-foreground-muted"
-      >{idAddress ? `${idAddress}@` : "visitor@"}</span
-    ><a
-      href="/"
-      aria-label="Omakasui home"
-      class="text-primary hover:text-primary-light font-semibold no-underline transition-colors duration-200 select-none"
-      >omakasui</a
-    ><span class="text-foreground-muted"
-      >:<span class="hidden sm:inline">{currentDir}</span><span
-        class="sm:hidden">~</span
-      > $</span
-    >
-  </div>
+    <div class="block overflow-hidden font-mono text-xs sm:text-sm">
+        <span class="text-foreground-muted">{idAddress ? `${idAddress}@` : 'visitor@'}</span>
+        <a
+            href="/"
+            aria-label="Omakasui home"
+            class="text-primary hover:text-primary-light font-semibold no-underline transition-colors duration-200 select-none"
+        >
+            omakasui
+        </a>
+        <span class="text-foreground-muted">
+            :<span class="hidden sm:inline">{currentDir}</span>
+            <span class="sm:hidden">~</span> $
+        </span>
+    </div>
 </div>

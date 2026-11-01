@@ -1,33 +1,29 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection } from 'astro:content'
+import Readme from '@/components/Readme.astro'
+import ShellCommand from '@/components/ShellCommand.astro'
+import ThemesList from '@/components/ThemesList.astro'
+import Layout from '@/layouts/Layout.astro'
 
-import Layout from "@/layouts/Layout.astro";
-import ThemesList from "@/components/ThemesList.astro";
-import Readme from "@/components/Readme.astro";
-import ShellCommand from "@/components/ShellCommand.astro";
-
-const themes = (await getCollection("themes")).toSorted((a, b) =>
-  a.data.name.localeCompare(b.data.name),
-);
+const themes = (await getCollection('themes')).toSorted((a, b) => a.data.name.localeCompare(b.data.name))
 ---
 
 <Layout title="Themes">
-  <Readme title="Themes" id="themes-heading">
-    <p class="text-foreground-secondary">
-      Color themes for Omakasui. Click a preview to enlarge it, or a name to
-      open its repository.
-    </p>
-  </Readme>
+    <Readme title="Themes" id="themes-heading">
+        <p class="text-foreground-secondary">
+            Color themes for Omakasui. Click a preview to enlarge it, or a name to open its repository.
+        </p>
+    </Readme>
 
-  <section aria-labelledby="themes-list-heading">
-    <h2 class="sr-only" id="themes-list-heading">
-      Available themes
-    </h2>
-    <ShellCommand> $ ls themes/ </ShellCommand>
-    {themes.length === 0 ? (
-      <p class="text-foreground-muted italic">No themes available yet.</p>
-    ) : (
-      <ThemesList themes={themes} />
-    )}
-  </section>
+    <section aria-labelledby="themes-list-heading">
+        <h2 class="sr-only" id="themes-list-heading">
+            Available themes
+        </h2>
+        <ShellCommand> $ ls themes/ </ShellCommand>
+        {themes.length === 0 ? (
+            <p class="text-foreground-muted italic">No themes available yet.</p>
+        ) : (
+            <ThemesList themes={themes} />
+        )}
+    </section>
 </Layout>

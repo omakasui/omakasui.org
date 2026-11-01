@@ -1,18 +1,18 @@
 ---
-import ShellCommand from "@/components/ShellCommand.astro";
+import ShellCommand from '@/components/ShellCommand.astro'
 
 interface Props {
-  title: string;
-  id: string;
+    title: string
+    id: string
 }
 
-const { title, id } = Astro.props;
+const { title, id } = Astro.props
 ---
 
 <section aria-labelledby={id}>
-  <ShellCommand> $ cat README.md </ShellCommand>
-  <h1 class="text-primary mb-4 text-3xl font-bold" id={id}>
-    {title}
-  </h1>
-  <slot />
+    <ShellCommand> $ cat README.md </ShellCommand>
+    <h1 class="text-primary mb-4 text-3xl font-bold" id={id}>
+        {title}
+    </h1>
+    <slot />
 </section>

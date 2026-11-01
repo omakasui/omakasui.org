@@ -1,35 +1,28 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection } from 'astro:content'
 
-const links = (await getCollection("navLinks")).toSorted(
-  (a, b) => a.data.order - b.data.order,
-);
+const links = (await getCollection('navLinks')).toSorted((a, b) => a.data.order - b.data.order)
 
-const currentPath = Astro.url.pathname;
-const isActive = (href: string, exact = false) =>
-  exact ? currentPath === href : currentPath.startsWith(href);
+const currentPath = Astro.url.pathname
+const isActive = (href: string, exact = false) => (exact ? currentPath === href : currentPath.startsWith(href))
 ---
 
 <nav
-  class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] sm:gap-x-5 sm:text-sm md:gap-x-8 lg:gap-x-12"
-  aria-label="Site navigation"
+    class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] sm:gap-x-5 sm:text-sm md:gap-x-8 lg:gap-x-12"
+    aria-label="Site navigation"
 >
-  {
-    links.map((link) => (
-      <a
-        href={link.data.href}
-        class:list={[
-          "font-mono font-normal no-underline transition-colors duration-200",
-          isActive(link.data.href, link.data.exact)
-            ? "text-primary"
-            : "text-foreground-muted hover:text-foreground",
-        ]}
-        aria-current={
-          isActive(link.data.href, link.data.exact) ? "page" : undefined
-        }
-      >
-        {link.data.label}
-      </a>
-    ))
-  }
+    {links.map((link) => (
+        <a
+            href={link.data.href}
+            class:list={[
+                'font-mono font-normal no-underline transition-colors duration-200',
+                isActive(link.data.href, link.data.exact)
+                    ? 'text-primary'
+                    : 'text-foreground-muted hover:text-foreground',
+            ]}
+            aria-current={isActive(link.data.href, link.data.exact) ? 'page' : undefined}
+        >
+            {link.data.label}
+        </a>
+    ))}
 </nav>

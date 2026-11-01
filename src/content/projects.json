@@ -1,46 +1,46 @@
 [
-  {
-    "id": "omabuntu",
-    "name": "omabuntu",
-    "description": "A fork of <a href=\"https://omakub.org\" target=\"_blank\" title=\"View Omakub website\" rel=\"noopener\">Omakub</a>, more flexible and refined",
-    "installCommand": "curl -fsSL https://omabuntu.omakasui.org/install | bash",
-    "siteUrl": "https://omabuntu.omakasui.org",
-    "sourceUrl": "https://github.com/omakasui/omabuntu",
-    "manualUrl": "https://omabuntu.omakasui.org/manual",
-    "hidden": false
-  },
-  {
-    "id": "omadeb",
-    "name": "omadeb",
-    "description": "Just like Omabuntu, but for <strong>Debian</strong>",
-    "installCommand": "curl -fsSL https://omadeb.omakasui.org/install | bash",
-    "siteUrl": "https://omadeb.omakasui.org",
-    "sourceUrl": "https://github.com/omakasui/omadeb",
-    "manualUrl": "https://omadeb.omakasui.org/manual",
-    "hidden": false
-  },
-  {
-    "id": "omadots",
-    "name": "omadots",
-    "description": "Manages your <strong>dotfiles</strong> the way Omabuntu and Omadeb manage the rest of the system",
-    "installCommand": "curl -fsSL https://omakasui.org/omadots | bash",
-    "sourceUrl": "https://github.com/omakasui/omadots",
-    "hidden": false
-  },
-  {
-    "id": "apt-packages",
-    "name": "apt-packages",
-    "description": "The <strong>APT repository</strong> that builds and serves all project packages",
-    "installCommand": "curl -fsSL https://omakasui.org/apt.sh | bash",
-    "siteUrl": "/apt",
-    "sourceUrl": "https://github.com/omakasui/apt-packages",
-    "hidden": false
-  },
-  {
-    "id": "omakasui.org",
-    "name": "omakasui.org",
-    "description": "This website",
-    "sourceUrl": "https://github.com/omakasui/omakasui.org",
-    "hidden": false
-  }
+    {
+        "id": "omabuntu",
+        "name": "omabuntu",
+        "description": "A fork of <a href=\"https://omakub.org\" target=\"_blank\" title=\"View Omakub website\" rel=\"noopener\">Omakub</a>, more flexible and refined",
+        "installCommand": "curl -fsSL https://omabuntu.omakasui.org/install | bash",
+        "siteUrl": "https://omabuntu.omakasui.org",
+        "sourceUrl": "https://github.com/omakasui/omabuntu",
+        "manualUrl": "https://omabuntu.omakasui.org/manual",
+        "hidden": false
+    },
+    {
+        "id": "omadeb",
+        "name": "omadeb",
+        "description": "Just like Omabuntu, but for <strong>Debian</strong>",
+        "installCommand": "curl -fsSL https://omadeb.omakasui.org/install | bash",
+        "siteUrl": "https://omadeb.omakasui.org",
+        "sourceUrl": "https://github.com/omakasui/omadeb",
+        "manualUrl": "https://omadeb.omakasui.org/manual",
+        "hidden": false
+    },
+    {
+        "id": "omadots",
+        "name": "omadots",
+        "description": "Manages your <strong>dotfiles</strong> the way Omabuntu and Omadeb manage the rest of the system",
+        "installCommand": "curl -fsSL https://omakasui.org/omadots | bash",
+        "sourceUrl": "https://github.com/omakasui/omadots",
+        "hidden": false
+    },
+    {
+        "id": "apt-packages",
+        "name": "apt-packages",
+        "description": "The <strong>APT repository</strong> that builds and serves all project packages",
+        "installCommand": "curl -fsSL https://omakasui.org/apt.sh | bash",
+        "siteUrl": "/apt",
+        "sourceUrl": "https://github.com/omakasui/apt-packages",
+        "hidden": false
+    },
+    {
+        "id": "omakasui.org",
+        "name": "omakasui.org",
+        "description": "This website",
+        "sourceUrl": "https://github.com/omakasui/omakasui.org",
+        "hidden": false
+    }
 ]

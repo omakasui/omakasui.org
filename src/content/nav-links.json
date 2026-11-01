@@ -1,24 +1,24 @@
 [
-  { "id": "home", "href": "/", "label": "~/", "exact": true, "order": 0 },
-  {
-    "id": "projects",
-    "href": "/projects",
-    "label": "projects/",
-    "description": "Source, manuals and install commands",
-    "order": 2
-  },
-  {
-    "id": "apt",
-    "href": "/apt",
-    "label": "apt/",
-    "description": "Install and update everything via apt",
-    "order": 3
-  },
-  {
-    "id": "themes",
-    "href": "/themes",
-    "label": "themes/",
-    "description": "Color themes for Omakasui",
-    "order": 4
-  }
+    { "id": "home", "href": "/", "label": "~/", "exact": true, "order": 0 },
+    {
+        "id": "projects",
+        "href": "/projects",
+        "label": "projects/",
+        "description": "Source, manuals and install commands",
+        "order": 2
+    },
+    {
+        "id": "apt",
+        "href": "/apt",
+        "label": "apt/",
+        "description": "Install and update everything via apt",
+        "order": 3
+    },
+    {
+        "id": "themes",
+        "href": "/themes",
+        "label": "themes/",
+        "description": "Color themes for Omakasui",
+        "order": 4
+    }
 ]

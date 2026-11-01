@@ -1,48 +1,44 @@
 ---
-const { count } = Astro.props;
+const { count } = Astro.props
 ---
 
 <button
-  class="hidden-toggle text-foreground-muted hover:text-primary m-0 flex w-full cursor-pointer items-center justify-start gap-2 border-none bg-transparent px-0 py-8 text-left text-[0.9rem] italic transition-colors duration-300 ease-in-out focus:outline-none"
-  aria-expanded="false"
+    class="hidden-toggle text-foreground-muted hover:text-primary m-0 flex w-full cursor-pointer items-center justify-start gap-2 border-none bg-transparent px-0 py-8 text-left text-[0.9rem] italic transition-colors duration-300 ease-in-out focus:outline-none"
+    aria-expanded="false"
 >
-  <span>( {count} hidden items )</span>
-  <span
-    class="arrow transition-transform duration-300 ease-in-out"
-    aria-hidden="true">▼</span
-  >
+    <span>( {count} hidden items )</span>
+    <span class="arrow transition-transform duration-300 ease-in-out" aria-hidden="true">
+        ▼
+    </span>
 </button>
-<div
-  class="hidden-content overflow-hidden transition-all duration-500 ease-in-out"
-  aria-hidden="true"
->
-  <div class="mt-2">
-    <slot />
-  </div>
+<div class="hidden-content overflow-hidden transition-all duration-500 ease-in-out" aria-hidden="true">
+    <div class="mt-2">
+        <slot />
+    </div>
 </div>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
-    const toggles = document.querySelectorAll(".hidden-toggle");
+    document.addEventListener('astro:page-load', () => {
+        const toggles = document.querySelectorAll('.hidden-toggle')
 
-    toggles.forEach((toggle) => {
-      // Avoid double-binding event listeners
-      if (toggle.hasAttribute("data-bound")) return;
-      toggle.setAttribute("data-bound", "");
+        toggles.forEach((toggle) => {
+            // Avoid double-binding event listeners
+            if (toggle.hasAttribute('data-bound')) return
+            toggle.setAttribute('data-bound', '')
 
-      toggle.addEventListener("click", () => {
-        const isExpanded = toggle.getAttribute("aria-expanded") === "true";
-        const content = toggle.nextElementSibling as HTMLElement;
+            toggle.addEventListener('click', () => {
+                const isExpanded = toggle.getAttribute('aria-expanded') === 'true'
+                const content = toggle.nextElementSibling as HTMLElement
 
-        toggle.setAttribute("aria-expanded", String(!isExpanded));
-        content.setAttribute("aria-hidden", String(isExpanded));
+                toggle.setAttribute('aria-expanded', String(!isExpanded))
+                content.setAttribute('aria-hidden', String(isExpanded))
 
-        if (isExpanded) {
-          content.classList.remove("expanded");
-        } else {
-          content.classList.add("expanded");
-        }
-      });
-    });
-  });
+                if (isExpanded) {
+                    content.classList.remove('expanded')
+                } else {
+                    content.classList.add('expanded')
+                }
+            })
+        })
+    })
 </script>

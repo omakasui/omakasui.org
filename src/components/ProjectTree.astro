@@ -1,149 +1,140 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import type { CollectionEntry } from 'astro:content'
 
 interface Props {
-  projects: CollectionEntry<"projects">[];
-  root?: string;
-  dotPrefix?: boolean;
+    projects: CollectionEntry<'projects'>[]
+    root?: string
+    dotPrefix?: boolean
 }
 
-type File = { name: string; href?: string; command?: string };
+type File = { name: string; href?: string; command?: string }
 
-const { projects, root, dotPrefix = false } = Astro.props;
+const { projects, root, dotPrefix = false } = Astro.props
 
 const entries = projects.map(({ data }) => {
-  const files: File[] = [];
-  if (data.manualUrl) files.push({ name: "README.md", href: data.manualUrl });
-  if (data.installCommand)
-    files.push({ name: "install", command: data.installCommand });
-  return { ...data, files };
-});
+    const files: File[] = []
+    if (data.manualUrl) files.push({ name: 'README.md', href: data.manualUrl })
+    if (data.installCommand) files.push({ name: 'install', command: data.installCommand })
+    return { ...data, files }
+})
 
-const fileCount = entries.reduce((sum, e) => sum + e.files.length, 0);
-const count = (n: number, one: string, many: string) =>
-  `${n} ${n === 1 ? one : many}`;
+const fileCount = entries.reduce((sum, e) => sum + e.files.length, 0)
+const count = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`
 
-const isExternal = (url: string) => /^https?:\/\//.test(url);
-const linkAttrs = (url: string) =>
-  isExternal(url) ? { target: "_blank", rel: "noopener" } : {};
-const displayUrl = (url: string) => url.replace(/^https?:\/\//, "");
-const stripTags = (html: string) => html.replace(/<[^>]+>/g, "");
+const isExternal = (url: string) => /^https?:\/\//.test(url)
+const linkAttrs = (url: string) => (isExternal(url) ? { target: '_blank', rel: 'noopener' } : {})
+const displayUrl = (url: string) => url.replace(/^https?:\/\//, '')
+const stripTags = (html: string) => html.replace(/<[^>]+>/g, '')
 
-const glyph = (last: boolean) => (last ? "└── " : "├── ");
-const indent = (last: boolean) => (last ? "    " : "│   ");
+const glyph = (last: boolean) => (last ? '└── ' : '├── ')
+const indent = (last: boolean) => (last ? '    ' : '│   ')
 
-const link =
-  "font-normal no-underline hover:underline decoration-1 underline-offset-2";
-const prefix = "text-foreground-muted shrink-0 whitespace-pre select-none";
+const link = 'font-normal no-underline hover:underline decoration-1 underline-offset-2'
+const prefix = 'text-foreground-muted shrink-0 whitespace-pre select-none'
 ---
 
 <div class="font-mono text-xs leading-relaxed sm:text-sm">
-  {root && <p class="text-info">{root}</p>}
-  <ul class="m-0 list-none p-0">
-    {entries.map((entry, i) => {
-      const lastDir = i === entries.length - 1;
-      const base = indent(lastDir);
-      const name = `${dotPrefix ? "." : ""}${entry.name}/`;
-      return (
-        <li id={entry.id} class="scroll-mt-8">
-          <div class="flex">
-            <span class={prefix} aria-hidden="true">
-              {glyph(lastDir)}
-            </span>
-            <span class="min-w-0">
-              {entry.sourceUrl ? (
-                <a
-                  href={entry.sourceUrl}
-                  title={`${stripTags(entry.description)} (source code)`}
-                  class:list={["text-info font-semibold", link]}
-                  {...linkAttrs(entry.sourceUrl)}
-                >
-                  {name}
-                </a>
-              ) : (
-                <span
-                  class="text-info font-semibold"
-                  title={stripTags(entry.description)}
-                >
-                  {name}
-                </span>
-              )}
-              {entry.siteUrl && (
-                <>
-                  <span class="text-foreground-muted"> -&gt; </span>
-                  <a
-                    href={entry.siteUrl}
-                    title={`Visit ${entry.name} website`}
-                    class:list={["text-primary", link]}
-                    {...linkAttrs(entry.siteUrl)}
-                  >
-                    {displayUrl(entry.siteUrl)}
-                  </a>
-                </>
-              )}
-            </span>
-          </div>
-          {entry.files.length > 0 && (
-            <ul class="m-0 list-none p-0">
-              {entry.files.map((file, j) => {
-                const lastFile = j === entry.files.length - 1;
-                return (
-                  <li>
+    {root && <p class="text-info">{root}</p>}
+    <ul class="m-0 list-none p-0">
+        {entries.map((entry, i) => {
+            const lastDir = i === entries.length - 1
+            const base = indent(lastDir)
+            const name = `${dotPrefix ? '.' : ''}${entry.name}/`
+            return (
+                <li id={entry.id} class="scroll-mt-8">
                     <div class="flex">
-                      <span class={prefix} aria-hidden="true">
-                        {base}
-                        {glyph(lastFile)}
-                      </span>
-                      {file.href ? (
-                        <a
-                          href={file.href}
-                          title={`Read ${entry.name} manual`}
-                          class:list={["text-foreground", link]}
-                          {...linkAttrs(file.href)}
-                        >
-                          {file.name}
-                        </a>
-                      ) : (
-                        <span class="text-foreground">{file.name}</span>
-                      )}
-                    </div>
-                    {file.command && (
-                      <div class="flex items-center">
                         <span class={prefix} aria-hidden="true">
-                          {base}
-                          {indent(lastFile)}
+                            {glyph(lastDir)}
                         </span>
-                        <code
-                          class="text-primary min-w-0 overflow-x-auto whitespace-nowrap"
-                          style="scrollbar-width: thin;"
-                        >
-                          <span class="text-foreground-muted select-none">
-                            {"$ "}
-                          </span>
-                          {file.command}
-                        </code>
-                        <button
-                          class="text-foreground-muted hover:text-foreground-bright ml-2 shrink-0 cursor-pointer border-none bg-transparent p-1 transition-colors"
-                          onclick={`navigator.clipboard.writeText(${JSON.stringify(file.command)})`}
-                          title="Copy to clipboard"
-                          aria-label={`Copy ${entry.name} install command`}
-                        >
-                          <i class="nf nf-md-content_copy" />
-                        </button>
-                      </div>
+                        <span class="min-w-0">
+                            {entry.sourceUrl ? (
+                                <a
+                                    href={entry.sourceUrl}
+                                    title={`${stripTags(entry.description)} (source code)`}
+                                    class:list={['text-info font-semibold', link]}
+                                    {...linkAttrs(entry.sourceUrl)}
+                                >
+                                    {name}
+                                </a>
+                            ) : (
+                                <span class="text-info font-semibold" title={stripTags(entry.description)}>
+                                    {name}
+                                </span>
+                            )}
+                            {entry.siteUrl && (
+                                <>
+                                    <span class="text-foreground-muted"> -&gt; </span>
+                                    <a
+                                        href={entry.siteUrl}
+                                        title={`Visit ${entry.name} website`}
+                                        class:list={['text-primary', link]}
+                                        {...linkAttrs(entry.siteUrl)}
+                                    >
+                                        {displayUrl(entry.siteUrl)}
+                                    </a>
+                                </>
+                            )}
+                        </span>
+                    </div>
+                    {entry.files.length > 0 && (
+                        <ul class="m-0 list-none p-0">
+                            {entry.files.map((file, j) => {
+                                const lastFile = j === entry.files.length - 1
+                                return (
+                                    <li>
+                                        <div class="flex">
+                                            <span class={prefix} aria-hidden="true">
+                                                {base}
+                                                {glyph(lastFile)}
+                                            </span>
+                                            {file.href ? (
+                                                <a
+                                                    href={file.href}
+                                                    title={`Read ${entry.name} manual`}
+                                                    class:list={['text-foreground', link]}
+                                                    {...linkAttrs(file.href)}
+                                                >
+                                                    {file.name}
+                                                </a>
+                                            ) : (
+                                                <span class="text-foreground">{file.name}</span>
+                                            )}
+                                        </div>
+                                        {file.command && (
+                                            <div class="flex items-center">
+                                                <span class={prefix} aria-hidden="true">
+                                                    {base}
+                                                    {indent(lastFile)}
+                                                </span>
+                                                <code
+                                                    class="text-primary min-w-0 overflow-x-auto whitespace-nowrap"
+                                                    style="scrollbar-width: thin;"
+                                                >
+                                                    <span class="text-foreground-muted select-none">{'$ '}</span>
+                                                    {file.command}
+                                                </code>
+                                                <button
+                                                    class="text-foreground-muted hover:text-foreground-bright ml-2 shrink-0 cursor-pointer border-none bg-transparent p-1 transition-colors"
+                                                    onclick={`navigator.clipboard.writeText(${JSON.stringify(file.command)})`}
+                                                    title="Copy to clipboard"
+                                                    aria-label={`Copy ${entry.name} install command`}
+                                                >
+                                                    <i class="nf nf-md-content_copy" />
+                                                </button>
+                                            </div>
+                                        )}
+                                    </li>
+                                )
+                            })}
+                        </ul>
                     )}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </li>
-      );
-    })}
-  </ul>
-  {root && (
-    <p class="text-foreground-muted mt-4">
-      {`${count(entries.length, "directory", "directories")}, ${count(fileCount, "file", "files")}`}
-    </p>
-  )}
+                </li>
+            )
+        })}
+    </ul>
+    {root && (
+        <p class="text-foreground-muted mt-4">
+            {`${count(entries.length, 'directory', 'directories')}, ${count(fileCount, 'file', 'files')}`}
+        </p>
+    )}
 </div>

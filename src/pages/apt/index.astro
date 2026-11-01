@@ -1,219 +1,191 @@
 ---
-import { getCollection } from "astro:content";
-import Layout from "@/layouts/Layout.astro";
-import Readme from "@/components/Readme.astro";
-import ShellCommand from "@/components/ShellCommand.astro";
+import { getCollection } from 'astro:content'
+import Readme from '@/components/Readme.astro'
+import ShellCommand from '@/components/ShellCommand.astro'
+import Layout from '@/layouts/Layout.astro'
 
-const aptPackages = await getCollection("aptPackages");
+const aptPackages = await getCollection('aptPackages')
 
-const setupCommand = "curl -fsSL https://omakasui.org/apt.sh | bash";
-const devSetupCommand = `${setupCommand} -s -- --dev`;
+const setupCommand = 'curl -fsSL https://omakasui.org/apt.sh | bash'
+const devSetupCommand = `${setupCommand} -s -- --dev`
 ---
 
 <Layout title="APT Repository">
-  <Readme title="APT Repository" id="apt-setup-heading">
-    <p class="text-foreground mb-6">
-      The Omakasui APT repository lets you install and keep all project packages
-      up to date via <code class="text-primary font-mono">apt</code>. Compatible
-      with <strong class="text-foreground-bright">Ubuntu 24.04</strong>,{" "}
-      <strong class="text-foreground-bright">Ubuntu 26.04</strong> and{" "}
-      <strong class="text-foreground-bright">Debian 13</strong>.
-    </p>
+    <Readme title="APT Repository" id="apt-setup-heading">
+        <p class="text-foreground mb-6">
+            The Omakasui APT repository lets you install and keep all project packages up to date via{' '}
+            <code class="text-primary font-mono">apt</code>. Compatible with{' '}
+            <strong class="text-foreground-bright">Ubuntu 24.04</strong>,{' '}
+            <strong class="text-foreground-bright">Ubuntu 26.04</strong> and{' '}
+            <strong class="text-foreground-bright">Debian 13</strong>.
+        </p>
 
-    <div
-      class="border-border-light bg-background-secondary flex items-start gap-2 overflow-hidden rounded-sm border p-3 sm:gap-4 sm:p-4"
-      role="group"
-      aria-label="Full setup command"
-    >
-      <code
-        class="text-primary block min-w-0 flex-1 overflow-x-auto text-xs leading-loose whitespace-pre sm:text-sm"
-        style="scrollbar-width: thin;"
-      >
-        {setupCommand}
-      </code>
-      <button
-        class="border-border-light bg-surface text-foreground-secondary hover:bg-surface-hover hover:text-foreground-bright mt-0.5 flex shrink-0 cursor-pointer items-center justify-center rounded border px-2.5 py-1.5 text-xs transition-colors sm:mt-0 sm:px-3 sm:py-2"
-        onclick={`navigator.clipboard.writeText(${JSON.stringify(setupCommand)})`}
-        title="Copy to clipboard"
-        aria-label="Copy full setup command"
-      >
-        <i class="nf nf-md-content_copy"></i>
-      </button>
-    </div>
+        <div
+            class="border-border-light bg-background-secondary flex items-start gap-2 overflow-hidden rounded-sm border p-3 sm:gap-4 sm:p-4"
+            role="group"
+            aria-label="Full setup command"
+        >
+            <code
+                class="text-primary block min-w-0 flex-1 overflow-x-auto text-xs leading-loose whitespace-pre sm:text-sm"
+                style="scrollbar-width: thin;"
+            >
+                {setupCommand}
+            </code>
+            <button
+                class="border-border-light bg-surface text-foreground-secondary hover:bg-surface-hover hover:text-foreground-bright mt-0.5 flex shrink-0 cursor-pointer items-center justify-center rounded border px-2.5 py-1.5 text-xs transition-colors sm:mt-0 sm:px-3 sm:py-2"
+                onclick={`navigator.clipboard.writeText(${JSON.stringify(setupCommand)})`}
+                title="Copy to clipboard"
+                aria-label="Copy full setup command"
+            >
+                <i class="nf nf-md-content_copy"></i>
+            </button>
+        </div>
 
-    <p class="text-foreground-secondary mt-4 text-sm">
-      For the dev channel:{" "}
-      <code class="text-primary font-mono break-all">{devSetupCommand}</code>
-    </p>
-  </Readme>
+        <p class="text-foreground-secondary mt-4 text-sm">
+            For the dev channel: <code class="text-primary font-mono break-all">{devSetupCommand}</code>
+        </p>
+    </Readme>
 
-  <section aria-labelledby="packages-heading">
-    <h2 class="sr-only" id="packages-heading">
-      Available APT Packages
-    </h2>
-    <ShellCommand> $ dpkg -l | grep omakasui </ShellCommand>
+    <section aria-labelledby="packages-heading">
+        <h2 class="sr-only" id="packages-heading">
+            Available APT Packages
+        </h2>
+        <ShellCommand> $ dpkg -l | grep omakasui </ShellCommand>
 
-    <div
-      class="border-border-light bg-background-secondary focus-within:border-primary mb-6 flex items-center gap-2 rounded-sm border px-3 py-2 transition-colors sm:gap-3 sm:px-4 sm:py-3"
-      role="search"
-    >
-      <span
-        class="text-foreground-muted shrink-0 font-mono text-xs select-none sm:text-sm"
-        aria-hidden="true"
-      >
-        $ grep -i
-      </span>
-      <input
-        id="apt-filter"
-        type="text"
-        placeholder="search packages..."
-        aria-label="Search APT packages"
-        autocomplete="off"
-        spellcheck="false"
-        class="text-primary placeholder:text-foreground-muted min-w-0 flex-1 border-none bg-transparent font-mono text-xs outline-none sm:text-sm"
-      />
-      <span
-        id="apt-filter-count"
-        class="text-foreground-muted shrink-0 font-mono text-xs"
-        aria-live="polite"
-        hidden
-      ></span>
-    </div>
+        <div
+            class="border-border-light bg-background-secondary focus-within:border-primary mb-6 flex items-center gap-2 rounded-sm border px-3 py-2 transition-colors sm:gap-3 sm:px-4 sm:py-3"
+            role="search"
+        >
+            <span class="text-foreground-muted shrink-0 font-mono text-xs select-none sm:text-sm" aria-hidden="true">
+                $ grep -i
+            </span>
+            <input
+                id="apt-filter"
+                type="text"
+                placeholder="search packages..."
+                aria-label="Search APT packages"
+                autocomplete="off"
+                spellcheck="false"
+                class="text-primary placeholder:text-foreground-muted min-w-0 flex-1 border-none bg-transparent font-mono text-xs outline-none sm:text-sm"
+            />
+            <span
+                id="apt-filter-count"
+                class="text-foreground-muted shrink-0 font-mono text-xs"
+                aria-live="polite"
+                hidden
+            ></span>
+        </div>
 
-    <div
-      class="border-border overflow-x-auto rounded-sm border"
-      style="scrollbar-width: thin;"
-    >
-      <table
-        class="w-full min-w-125 text-sm"
-        aria-label="Available APT packages"
-      >
-        <thead>
-          <tr class="border-border bg-surface border-b">
-            <th
-              class="text-foreground-bright px-4 py-3 text-left font-semibold"
-              scope="col"
-            >
-              Package
-            </th>
-            <th
-              class="text-foreground-bright px-4 py-3 text-left font-semibold"
-              scope="col"
-            >
-              Version
-            </th>
-            <th
-              class="text-foreground-bright px-4 py-3 text-left font-semibold"
-              scope="col"
-            >
-              Suites
-            </th>
-            <th
-              class="text-foreground-bright hidden px-4 py-3 text-left font-semibold md:table-cell"
-              scope="col"
-            >
-              Arch.
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {aptPackages.map((pkg) => (
-            <tr
-              class="border-border hover:bg-surface-hover border-t transition-colors"
-              data-filter={[
-                pkg.data.name,
-                pkg.data.version,
-                ...pkg.data.suites,
-                ...pkg.data.architecture,
-              ].join(" ")}
-            >
-              <td class="text-primary px-4 py-3 font-mono whitespace-nowrap">
-                {pkg.data.url ? (
-                  <a
-                    href={pkg.data.url}
-                    class="hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {pkg.data.name}
-                  </a>
-                ) : (
-                  pkg.data.name
-                )}
-              </td>
-              <td class="text-foreground-secondary px-4 py-3">
-                {pkg.data.version}
-              </td>
-              <td class="text-foreground-secondary px-4 py-3">
-                {pkg.data.suites.join(", ")}
-              </td>
-              <td class="text-foreground-secondary hidden px-4 py-3 md:table-cell">
-                {pkg.data.architecture.join(", ")}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-        <tr class="border-border border-t" data-filter-empty hidden>
-          <td
-            class="text-foreground-muted px-4 py-3 font-mono italic"
-            colspan="4"
-          ></td>
-        </tr>
-      </table>
-    </div>
-  </section>
+        <div class="border-border overflow-x-auto rounded-sm border" style="scrollbar-width: thin;">
+            <table class="w-full min-w-125 text-sm" aria-label="Available APT packages">
+                <thead>
+                    <tr class="border-border bg-surface border-b">
+                        <th class="text-foreground-bright px-4 py-3 text-left font-semibold" scope="col">
+                            Package
+                        </th>
+                        <th class="text-foreground-bright px-4 py-3 text-left font-semibold" scope="col">
+                            Version
+                        </th>
+                        <th class="text-foreground-bright px-4 py-3 text-left font-semibold" scope="col">
+                            Suites
+                        </th>
+                        <th
+                            class="text-foreground-bright hidden px-4 py-3 text-left font-semibold md:table-cell"
+                            scope="col"
+                        >
+                            Arch.
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {aptPackages.map((pkg) => (
+                        <tr
+                            class="border-border hover:bg-surface-hover border-t transition-colors"
+                            data-filter={[
+                                pkg.data.name,
+                                pkg.data.version,
+                                ...pkg.data.suites,
+                                ...pkg.data.architecture,
+                            ].join(' ')}
+                        >
+                            <td class="text-primary px-4 py-3 font-mono whitespace-nowrap">
+                                {pkg.data.url ? (
+                                    <a
+                                        href={pkg.data.url}
+                                        class="hover:underline"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {pkg.data.name}
+                                    </a>
+                                ) : (
+                                    pkg.data.name
+                                )}
+                            </td>
+                            <td class="text-foreground-secondary px-4 py-3">{pkg.data.version}</td>
+                            <td class="text-foreground-secondary px-4 py-3">{pkg.data.suites.join(', ')}</td>
+                            <td class="text-foreground-secondary hidden px-4 py-3 md:table-cell">
+                                {pkg.data.architecture.join(', ')}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+                <tr class="border-border border-t" data-filter-empty hidden>
+                    <td class="text-foreground-muted px-4 py-3 font-mono italic" colspan="4"></td>
+                </tr>
+            </table>
+        </div>
+    </section>
 </Layout>
 
 <script>
-  const toMatcher = (pattern: string) => {
-    try {
-      const re = new RegExp(pattern, "i");
-      return (text: string) => re.test(text);
-    } catch {
-      const needle = pattern.toLowerCase();
-      return (text: string) => text.toLowerCase().includes(needle);
+    const toMatcher = (pattern: string) => {
+        try {
+            const re = new RegExp(pattern, 'i')
+            return (text: string) => re.test(text)
+        } catch {
+            const needle = pattern.toLowerCase()
+            return (text: string) => text.toLowerCase().includes(needle)
+        }
     }
-  };
 
-  document.addEventListener("astro:page-load", () => {
-    const input = document.getElementById("apt-filter") as HTMLInputElement;
-    if (!input || input.hasAttribute("data-bound")) return;
-    input.setAttribute("data-bound", "");
+    document.addEventListener('astro:page-load', () => {
+        const input = document.getElementById('apt-filter') as HTMLInputElement
+        if (!input || input.hasAttribute('data-bound')) return
+        input.setAttribute('data-bound', '')
 
-    const rows = document.querySelectorAll<HTMLElement>("tr[data-filter]");
-    const empty = document.querySelector<HTMLTableRowElement>(
-      "tr[data-filter-empty]",
-    );
-    const count = document.getElementById("apt-filter-count");
+        const rows = document.querySelectorAll<HTMLElement>('tr[data-filter]')
+        const empty = document.querySelector<HTMLTableRowElement>('tr[data-filter-empty]')
+        const count = document.getElementById('apt-filter-count')
 
-    const apply = () => {
-      const query = input.value.trim();
-      const matches = toMatcher(query);
-      let visible = 0;
-      rows.forEach((row) => {
-        const hit = matches(row.dataset.filter ?? "");
-        row.hidden = !hit;
-        if (hit) visible++;
-      });
-      if (empty) {
-        empty.hidden = visible > 0;
-        empty.cells[0].textContent = `grep: no matches for '${query}'`;
-      }
-      if (count) {
-        count.hidden = !query;
-        count.textContent = `${visible} match${visible === 1 ? "" : "es"}`;
-      }
-    };
+        const apply = () => {
+            const query = input.value.trim()
+            const matches = toMatcher(query)
+            let visible = 0
+            rows.forEach((row) => {
+                const hit = matches(row.dataset.filter ?? '')
+                row.hidden = !hit
+                if (hit) visible++
+            })
+            if (empty) {
+                empty.hidden = visible > 0
+                empty.cells[0].textContent = `grep: no matches for '${query}'`
+            }
+            if (count) {
+                count.hidden = !query
+                count.textContent = `${visible} match${visible === 1 ? '' : 'es'}`
+            }
+        }
 
-    let timer: ReturnType<typeof setTimeout>;
-    input.addEventListener("input", () => {
-      clearTimeout(timer);
-      timer = setTimeout(apply, 150);
-    });
-    input.addEventListener("keydown", (e) => {
-      if (e.key !== "Escape") return;
-      input.value = "";
-      apply();
-    });
-  });
+        let timer: ReturnType<typeof setTimeout>
+        input.addEventListener('input', () => {
+            clearTimeout(timer)
+            timer = setTimeout(apply, 150)
+        })
+        input.addEventListener('keydown', (e) => {
+            if (e.key !== 'Escape') return
+            input.value = ''
+            apply()
+        })
+    })
 </script>
