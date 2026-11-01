@@ -101,12 +101,7 @@ const devSetupCommand = `${setupCommand} -s -- --dev`
                     {aptPackages.map((pkg) => (
                         <tr
                             class="border-border hover:bg-surface-hover border-t transition-colors"
-                            data-filter={[
-                                pkg.data.name,
-                                pkg.data.version,
-                                ...pkg.data.suites,
-                                ...pkg.data.architecture,
-                            ].join(' ')}
+                            data-filter={[pkg.data.name].join(' ')}
                         >
                             <td class="text-primary px-4 py-3 font-mono whitespace-nowrap">
                                 {pkg.data.url ? (
