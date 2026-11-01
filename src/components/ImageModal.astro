@@ -1,33 +1,27 @@
 ---
+import type { ImageMetadata } from 'astro'
+import { Image } from 'astro:assets'
+
 interface Props {
-    src?: string
+    src: ImageMetadata
     name: string
     id: string
+    priority?: boolean
 }
 
-const { src, name, id } = Astro.props
+const { src, name, id, priority = false } = Astro.props
 const modalId = `modal-${id}`
 ---
 
-<button
-    class="block w-full cursor-pointer"
-    data-modal-open={modalId}
-    title={`Open preview of ${name}`}
-    data-image={src}
-    data-name={name}
->
-    {src ? (
-        <img
-            src={src}
-            alt={`${name} preview`}
-            class="h-48 w-full rounded-lg object-cover transition-transform duration-300 ease-in-out hover:scale-105"
-            loading="lazy"
-        />
-    ) : (
-        <div class="flex h-48 w-full items-center justify-center rounded-lg bg-gray-200 text-6xl opacity-70">
-            <i class="nf nf-fa-picture_o" />
-        </div>
-    )}
+<button class="block w-full cursor-pointer" data-modal-open={modalId} title={`Open preview of ${name}`}>
+    <Image
+        src={src}
+        width={800}
+        alt={`${name} preview`}
+        class="h-48 w-full rounded-lg object-cover transition-transform duration-300 ease-in-out hover:scale-105"
+        loading="eager"
+        priority={priority}
+    />
 </button>
 
 <div id={modalId} class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4" data-modal>
@@ -39,19 +33,21 @@ const modalId = `modal-${id}`
         >
             <i class="nf nf-md-close"></i>
         </button>
-        <img id={`${modalId}-image`} src="" alt="" class="max-h-[90vh] max-w-full rounded-lg shadow-2xl" />
+        <Image
+            src={src}
+            alt={`${name} full size`}
+            class="max-h-[90vh] w-auto max-w-full rounded-lg shadow-2xl"
+            loading="eager"
+            fetchpriority="low"
+        />
     </div>
 </div>
 
 <script>
     const open = (trigger: HTMLElement) => {
-        const imageSrc = trigger.dataset.image
         const modal = document.getElementById(trigger.dataset.modalOpen ?? '')
-        const image = modal?.querySelector('img')
-        if (!imageSrc || !modal || !image) return
+        if (!modal) return
 
-        image.src = imageSrc
-        image.alt = `${trigger.dataset.name} full size`
         modal.classList.replace('hidden', 'flex')
         document.body.style.overflow = 'hidden'
     }

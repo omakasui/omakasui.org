@@ -9,7 +9,12 @@ const { themes } = Astro.props
     <div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {themes.map((theme: CollectionEntry<'themes'>, index: number) => (
             <div class="flex flex-col items-center">
-                <ImageModal src={theme.data.image} name={theme.data.name} id={`theme-${index}`} />
+                <ImageModal
+                    src={theme.data.image}
+                    name={theme.data.name}
+                    id={`theme-${index}`}
+                    priority={index === 0}
+                />
                 <a
                     href={theme.data.url}
                     target="_blank"

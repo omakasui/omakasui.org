@@ -124,12 +124,13 @@ const projects = defineCollection({
 
 const themes = defineCollection({
     loader: file('src/content/themes.json'),
-    schema: z.object({
-        id: z.string(),
-        name: z.string(),
-        url: z.string(),
-        image: z.string(),
-    }),
+    schema: ({ image }) =>
+        z.object({
+            id: z.string(),
+            name: z.string(),
+            url: z.string(),
+            image: image(),
+        }),
 })
 
 export const collections = {
