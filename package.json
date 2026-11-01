@@ -3,15 +3,14 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "prepare": "husky",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "format": "prettier --check .",
-    "format:fix": "prettier --write .",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
@@ -22,24 +21,11 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "@types/node": "^26.6.4",
-    "@typescript-eslint/parser": "^8.72.1",
-    "eslint": "^10",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-astro": "^3.2.1",
-    "husky": "^9.1.7",
-    "lint-staged": "^17.6.0",
-    "prettier": "3.9.10",
-    "prettier-plugin-astro": "1.1.2",
-    "prettier-plugin-tailwindcss": "0.8.1",
+    "oxfmt": "^0.75.0",
+    "oxlint": "^1.90.0",
     "typescript": "^6"
   },
-  "lint-staged": {
-    "*.{ts,tsx,astro}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{js,json,md}": [
-      "prettier --write"
-    ]
-  }
+    "lint-staged": {
+        "*.{js,jsx,ts,tsx,mjs,cjs}": "pnpm run lint"
+    }
 }
